@@ -1,0 +1,132 @@
+@whiteA : rgba(255, 255, 255, 0.6);
+@whiteB : rgba(255, 255, 255, 0);
+@purple : rgb(13, 0, 34);
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+/* NOTE: 중복으로 적용되는 코드 통합 */
+*{
+    box-sizing: border-box;
+    color:white;
+    scroll-behavior: smooth;
+}
+ul{
+    list-style: none;
+    display:flex;
+}
+a{
+    text-decoration: none;
+}
+
+body{
+    background:@purple;
+    
+    /*background-image:url('../background01.jpg');*/
+}
+
+.Intro{
+    position: absolute; 
+    top:50%;
+    left:50%;
+    opacity: 1;
+    transition: all 2s;
+}
+.blogName{
+    position:relative;
+    
+}
+
+
+.Blog{
+    width:966px; height: 100%;
+    position: relative;
+    top:0; left:0;
+    margin: 0 auto;
+}
+.headerWrap{
+    /* 크기, 위치 지정*/
+    min-width: 966px;
+    height: 100px;
+    position:relative;
+}
+.nav{
+    position: fixed;
+    top:0;
+    z-index: 5;
+    background:@purple;
+}
+
+.navMenu{
+    /* 위치 및 블럭 설정 */
+    flex-direction: row;
+
+    /* 크기 지정*/
+    margin: 0;
+    padding: 9px 0px;
+    height: 50px;
+
+    /* 텍스트 설정 */
+    text-align: center;
+    line-height: 28px;
+    font-weight: bold;
+
+    /* border 속성 지정 */
+    border: 2px solid white;
+    border-left:none;
+    border-right:none;
+}
+/* NOTE: less언어니깐 통합 가능할듯*/
+.navMenu > li{
+    width: (966px*0.2px - 1px);
+    border-left: 2px solid white;
+}
+.navMenu > li:first-child{
+    border-left: none;
+}
+.navMenu > li > a:hover{
+    animation-name: twinkle;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.mainContents{
+    position: relative;
+    top:400px;
+    display:grid;
+
+    font-family: 'Pangolin', cursive, "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+.content > article{
+    float: left;
+    padding-top: 150px;
+}
+
+.wrap-stars{
+    position:absolute;
+    width:100%;
+    z-index: 99;
+    left:0;
+}
+.stars-made-js {
+    position:absolute;
+    z-index: 100;
+
+    width: 7px;
+    height: 7px;
+    background: white;
+    border-radius: 100%;
+    background: radial-gradient(circle, white, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+}
+
+
+
+
+
+
+
+@keyframes twinkle{
+    from{ color:white; }
+    50%{ color:@whiteA; }
+    to{ color:white; }
+}
