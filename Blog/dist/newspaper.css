@@ -149,11 +149,14 @@ span {
   text-align: center;
 }
 [data-index='4'] > div {
-  width: 50%;
+  width: 45%;
   float: left;
+  height: 50%;
+  overflow: hidden;
 }
 [data-index='4'] > div > img {
   position: relative;
+  width: 90%;
   top: 10px;
   left: 10px;
 }

@@ -1,3 +1,13 @@
 2021-03-25 :
 jquery
 local -> cdn으로 변경
+
+
+2021-03-26 :
+starEffect.html 	
+starEffect.less
+starEffect.js	생성
+
+newspaper.html 
+newspaper.less
+newspaperJS.js	생성
