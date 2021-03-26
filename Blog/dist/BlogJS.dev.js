@@ -21,7 +21,7 @@ $(document).ready(function () {
 
   init_height();
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < 6; i++) {
     $('<div></div>').addClass('wrap-stars').css({
       'top': block_section * i
     }).appendTo('.wrap-blog');

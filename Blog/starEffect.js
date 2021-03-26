@@ -19,7 +19,7 @@ $(document).ready(function(){
 
     // main 함수 되는친구
     init_height();
-    for(let i=0; i<10; i++){
+    for(let i=0; i<6; i++){
         
         $('<div></div>').addClass('wrap-stars').css({
             'top' : block_section*i,
