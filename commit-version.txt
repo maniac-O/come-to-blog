@@ -11,3 +11,6 @@ starEffect.js	생성
 newspaper.html 
 newspaper.less
 newspaperJS.js	생성
+
+2021-03-28 :
+동적으로 grid 디스플레이 (order)값 동적 할당

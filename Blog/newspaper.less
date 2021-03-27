@@ -133,6 +133,7 @@ span{
         border-radius: 4px;
         height:700px;
         overflow: hidden;
+        transition: all 1.5s;
 
         & > span:nth-of-type(1):first-letter{
             
@@ -149,12 +150,20 @@ span{
     }
     
 }
-[data-index='1'] > img{
-    width:100%;
-}
+[data-index='1']{
+    order:1;
+    & > img{
+        width:100%;
+    }
+} 
 [data-index='2']{
     display:block;
     text-align: center;
+    & > span:nth-of-type(3){
+        color:@red;
+        font-weight: bold;
+        font-family: 'Syne Mono', 'monospace';
+    }
 }
 [data-index='4']{
     & > div{
@@ -169,4 +178,33 @@ span{
             left:10px;
         }
     }
+}
+[data-index='6']{
+    & > div:nth-of-type(1){
+        width:70%;
+        float:left;
+        height: 50%;
+        overflow: hidden;
+        & > img{
+            position:relative;
+            width:90%;
+            top:10px;
+            left:10px;
+        }
+    }
+    & > div:nth-of-type(2){
+        width:25%;
+        height: 50%;
+        float:left;
+        overflow: hidden;
+    }
+}
+[data-index='9']{
+    position: relative;
+    & > div{
+        position: absolute;
+        top:40%;
+        left:30%;
+    }
+    
 }
