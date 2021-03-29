@@ -132,7 +132,6 @@ span {
   border-radius: 4px;
   height: 700px;
   overflow: hidden;
-  transition: all 1.5s;
 }
 .contents [data-index] > span:nth-of-type(1):first-letter {
   font-weight: bold;
@@ -142,8 +141,29 @@ span {
   font-weight: bold;
   font-size: 2.3rem;
 }
-[data-index='1'] {
-  order: 1;
+.cloned {
+  animation-name: showit;
+  animation-duration: 1s;
+}
+.deleted {
+  animation-name: hideit;
+  animation-duration: 1s;
+}
+@keyframes showit {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes hideit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 [data-index='1'] > img {
   width: 100%;
@@ -192,6 +212,6 @@ span {
 }
 [data-index='9'] > div {
   position: absolute;
-  top: 40%;
-  left: 30%;
+  top: 35%;
+  left: 25%;
 }
