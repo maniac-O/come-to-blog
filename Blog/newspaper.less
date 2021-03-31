@@ -1,18 +1,34 @@
 @green : #02343F;
+@greenB : #034a5a;
+@greenC : #001d24;
 @red : #9e002f;
 @yellow : #F0EDCC;
 @yellowB : #d1cb8e;
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poiret+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&family=Train+One&display=swap');
+@yellowC : #c5bd77;
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+
+
+
+// TODO: js에 주석달고 탭창 아이콘 추가
 // TODO: footer쪽 그라데이션 늘리고 하스스톤스럽게 디자인 추가해서 마무리하자
 // 하스스톤을 조사해서 모방
+// TODO: 뉴스시스템이기때문에 페북 공유같은 기능 ㄱㄱ
+
+// contents 10번째 뒤에 footer같은 느낌으로 영역을 한번 나눠주자
+// sidebar 만들기 
+
 *{
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
 body{
-    background: radial-gradient(circle, @yellowB, @yellow);
+    background: radial-gradient(circle, @yellowC, @yellow);
     font-family: 'DM Serif Display', serif;
     font-size: 20px;
 }
@@ -24,10 +40,10 @@ a{
 }
 ul{
     list-style: none;
-    display: flex;
     padding:0;
+    margin:0;
 }
-span{
+p{
     display:inline-block;
 }
 highlight{
@@ -70,6 +86,7 @@ highlight{
 
     & > p{
         margin:0;
+        display: block;
     }
 }
 
@@ -80,9 +97,9 @@ highlight{
     float:left;
     bottom:10px;
     position:absolute;
-
 }
 .wrapnav > ul{
+    display: flex;
     background:@yellow;
     color:@green;
     background: linear-gradient(to right, @yellow 40%, @yellowB);
@@ -95,13 +112,35 @@ highlight{
     flex-direction: row;
     width:20%;
     line-height: 42px;
-
+    border-radius: 4px;
 
         & > a{
             color:inherit;
         }
     }
 }
+.fixed-bar{
+    position: fixed;
+    top:0; 
+    width: ~"calc(100% - 60px)"; height: 50px;  
+
+    //margin-top:5px;
+
+    border-radius: 0 0 7px 7px;
+    box-shadow: 4px 5px 5px black;
+
+    z-index: 10;
+    background: @green;
+    & > ul {
+        background: linear-gradient(to right, @greenB 0%, @green);
+        & > li{
+            color:@yellow;
+            line-height: 48px;
+            
+        }
+    }
+}
+
 .statbar{
     float:left;
 
@@ -120,41 +159,92 @@ highlight{
 .wrapmiddle{
     float:left;
     color: @green;
-    width: 100%;
+    width: 100%; height:100%;
 }
+.sidebar{
+    float:left;
+    margin-top:15px;
+
+    & > ul{
+        
+    }
+    & > ul > li{
+        float:left;
+        width: 100%;
+        border:1px solid @green;
+    }
+    
+    width: ~'calc(20% - 8px)';
+    height:500px;
+
+    border: 1px solid @green;
+}
+
+
+
 .contents{
+    float:right;
+    width: 80%;
     display:grid;
     grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr;
-    grid-template-rows: 1fr ;
+    grid-template-rows: 1fr 0.3fr 1fr 0.7fr;
     grid-gap:10px;
 
     margin-top:15px;
     
+    position: relative;
     [data-index]{
-        //float: left;
         border: 1px solid @green;
         border-radius: 4px;
         height:700px;
         overflow: hidden;
+        box-shadow: 6px 6px 6px rgb(41, 41, 41);
+        position: relative;
+        // 중요: 짤리는 본문 처리, 본문 폰트 재적용
 
-        & > span:nth-of-type(1):first-letter{
+        
+        & > .bottom-div{
+            position: absolute;
+            top:90%; left:0;
+            
+            width:100%; height:10%;
+            
+            background: linear-gradient(to bottom right, @green 40%, @greenC);
+            color:@yellow;
+            border-radius: 4px 4px 0 0;
+
+            font-family: 'Caveat', cursive;
+            font-weight: bold;
+            text-align: center;
+            font-size:1.5rem;
+            line-height: 70px;
+            
+            & > cnt{
+                font-size: 1.8rem;
+                font-weight: bold;
+                // 중요: color:@red; red색상 말고 다른 색상 추가
+            }
+        }
+
+
+        & > p:nth-of-type(1):first-letter{
             
             font-weight: bold;
-            //color:@red;
-            font-size: 2.3rem;
+            font-size: 1.7rem;
         }
-        & > div > span:nth-of-type(1):first-letter{
+        & > div > p:nth-of-type(1):first-letter{
             
             font-weight: bold;
-            //color:@red;
-            font-size: 2.3rem;
+            font-size: 1.7rem;
         }
+
     }
     
 }
 .cloned{
     animation-name: showit;
     animation-duration: 1s;
+    z-index: 2;
 }
 .deleted{
     animation-name: hideit;
@@ -177,7 +267,6 @@ highlight{
     }
 }
 
-
 [data-index='1']{
     & > img{
         width:100%;
@@ -186,17 +275,20 @@ highlight{
 [data-index='2']{
     display:block;
     text-align: center;
-    & > span:nth-of-type(3){
+    & > p:nth-of-type(2){
         color:@red;
         font-weight: bold;
         font-family: 'Syne Mono', 'monospace';
     }
+    & > div > img{
+        width:100%;
+    }
 }
 [data-index='4']{
-    & > div{
+    & > div:nth-of-type(1){
         width:45%;
         float:left;
-        height: 50%;
+        height: 45%;
         overflow: hidden;
         & > img{
             position:relative;
@@ -204,6 +296,12 @@ highlight{
             top:10px;
             left:10px;
         }
+    }
+    & > div:nth-of-type(2){
+        width:45%;
+        float:left;
+        height: 45%;
+        overflow: hidden;
     }
 }
 [data-index='6']{
@@ -221,7 +319,7 @@ highlight{
     }
     & > div:nth-of-type(2){
         width:25%;
-        height: 50%;
+        height: 48%;
         float:left;
         overflow: hidden;
     }
@@ -230,8 +328,8 @@ highlight{
     position: relative;
     & > div{
         position: absolute;
-        top:35%;
-        left:25%;
+        top:25%;
+        left:20%;
     }
     
 }
@@ -244,17 +342,19 @@ highlight{
     width: 100%;
     
     border-radius: 7px;
-    border:1px solid @green;
 
     text-align: center;
     margin:30px 0;
 
     font-size:0.8rem;
-    color:@green;
+    color:@yellow;
+    background: @green;
+    box-shadow: 5px 7px 7px black;
 
     & > p{
         height: 18px;
         line-height: 18px;
+        display:block;
     }
 
     & > p:last-of-type{
@@ -272,7 +372,7 @@ highlight{
         margin: 0 30px 15px 30px;
 
         width: ~"calc(100% - 60px )"; height:2px;
-        border-bottom: 4px double @green;
+        border-bottom: 4px double @yellow;
 
     }
 }
