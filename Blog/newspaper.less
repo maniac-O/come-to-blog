@@ -1,34 +1,47 @@
-@green : #02343F;
-@greenB : #034a5a;
-@greenC : #001d24;
+@blue : #02343F;
+@blueB : #034a5a;
+@brownA : #4d2915;
+@brownB-1: #3b1600;
+@brownB-2 : #1b0a00;
+@shadow : #292929;
+@shadow2 : #444444;
 @red : #9e002f;
 @yellow : #F0EDCC;
+@yellowB-1 : #dad59e;
 @yellowB : #d1cb8e;
 @yellowC : #c5bd77;
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poiret+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
-
-
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poiret+One&display=swap');    // header font
+@import url('https://fonts.googleapis.com/css2?family=Charm&display=swap');                                 // bottom-div font
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap');                     // 본문 font 임시
 
 
 
-// TODO: js에 주석달고 탭창 아이콘 추가
-// TODO: footer쪽 그라데이션 늘리고 하스스톤스럽게 디자인 추가해서 마무리하자
+// 컨셉 or 기능에 하나만 하자 둘다 가져갈려고 너무 애매해진다.
+// TODO: js코드 최적화 및 주석달고 탭창 아이콘 추가
+// TODO: 하스스톤스럽게 디자인 추가해서 마무리하자
 // 하스스톤을 조사해서 모방
 // TODO: 뉴스시스템이기때문에 페북 공유같은 기능 ㄱㄱ
+// 해리포터 신문 조사
 
 // contents 10번째 뒤에 footer같은 느낌으로 영역을 한번 나눠주자
-// sidebar 만들기 
+// sidebar 디자인 수정
+// 본문 FONT 재적용
+// fixed-nav바를 디자인을 손대볼까
+// statbar-b안에 들어갈 내용 찾기
+// 본문이 세로로 길면 가시성도 좋지 않고 촌스러워보인다?
+// 본문 내 사진 일정한 크기 일정한 위치로 조정
+// 롤링 바 추가
+// 길게 늘어난 폰트
+// FIXME: 340줄 텍스트 넘어가면 그냥 줄바꿈 해버리기 속성
+
 
 *{
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
 body{
-    background: radial-gradient(circle, @yellowC, @yellow);
+    background: radial-gradient(circle, @yellowB, @yellowB-1);
     font-family: 'DM Serif Display', serif;
     font-size: 20px;
 }
@@ -54,7 +67,6 @@ highlight{
 
 
 .wrapbody{
-    //display:inline-block;
     min-width:966px; height:100%;
     margin:0 7px;
 }
@@ -63,12 +75,12 @@ highlight{
     position: relative;
     float:left;
     
-    background: @green;
+    background: @blue;
     color: @yellow;
 
     
     border-radius: 7px;
-    box-shadow: 5px 7px 7px black;
+    box-shadow: 6px 6px 6px black;
     margin-top: 10px;
 
     width:100%;
@@ -100,8 +112,7 @@ highlight{
 }
 .wrapnav > ul{
     display: flex;
-    background:@yellow;
-    color:@green;
+    color:@blue;
     background: linear-gradient(to right, @yellow 40%, @yellowB);
 
     border-radius: 4px;
@@ -124,15 +135,14 @@ highlight{
     top:0; 
     width: ~"calc(100% - 60px)"; height: 50px;  
 
-    //margin-top:5px;
 
     border-radius: 0 0 7px 7px;
-    box-shadow: 4px 5px 5px black;
+    box-shadow: 4px 5px 5px @shadow2;
 
     z-index: 10;
-    background: @green;
+    background: @blue;
     & > ul {
-        background: linear-gradient(to right, @greenB 0%, @green);
+        background: linear-gradient(to right, @brownB-1 50%, @brownB-2);
         & > li{
             color:@yellow;
             line-height: 48px;
@@ -149,44 +159,170 @@ highlight{
 
     margin-top:15px;
     text-align: center;
-    
-    background:@green;
+    background:@blue;
     color:@yellow;
-    box-shadow: 5px 7px 7px black;
+    box-shadow: 6px 6px 6px black;
+    
+    font-size:1.8rem;
+    line-height: 70px;
+
+    & > p{
+        margin:0;
+        & > highlight{
+            font-size:1.8rem;
+        }
+    }
+}
+.statbar-b{
+    width:100%; height:146px;
+    float:left;
+    margin-top:9px;
+    border-radius: 4px;
+    box-shadow: 6px 6px 6px black;
+
+    background:@brownB-1;
+    background: linear-gradient(to bottom, @blue 70%, @brownB-1);
 }
 
 
 .wrapmiddle{
     float:left;
-    color: @green;
+    color: @blue;
     width: 100%; height:100%;
+}
+.wrap-sidebar{
+    float:left;
+    width : ~'calc(20% - 8px)';
+    height:100%;
+    margin-top:15px;
+    margin-right:6px;
 }
 .sidebar{
     float:left;
-    margin-top:15px;
+    
 
-    & > ul{
-        
+    width: 100%;
+
+    box-shadow: 3px 3px 3px @shadow2;
+    border: 1px solid @brownA;
+
+    & > ul > li:nth-of-type(1){
+        height:650px;
     }
     & > ul > li{
         float:left;
-        width: 100%;
-        border:1px solid @green;
+        width: 100%; height:200px;
+        border:1px solid @blue;
+        position: relative;
+
+        & > .sidebar-weather{
+            position:absolute;
+            left:0; top:70%;
+            width:100%; height:30%;
+            //background:@blue;
+            background: linear-gradient(to bottom right, @brownB-1 40%, @brownB-2);
+            color:@yellowB-1;
+
+            line-height: 60px;
+            text-align: center;
+        }
     }
     
-    width: ~'calc(20% - 8px)';
-    height:500px;
-
-    border: 1px solid @green;
 }
+.preview-top{
+    float:left;
+    position:relative;
+    width:100%; height: 8%;
+    line-height: 75px;
+}
+.sidebar-top-left{
+    margin-left: 7.5%;
+    font-size:2rem;
+    height:100%;
+    float:left;
+}
+.sidebar-top-right{
+    float:right;
+    width:7%;
+
+    margin-top:27px;
+    margin-left:10px;
+    & > img{
+        float:right;
+        
+        width:100%; height:40%;
+    }
+}
+.sidebar-top-right:nth-of-type(2){
+    margin-right:7.5%;
+}
+.top-bot-line{
+    line-height: 0;
+    position:relative;
+    width:85%; height:1px;
+    border-bottom:1px solid @brownB-1;
+    left:0; top:100%;
+    margin:0 auto;
+}
+
+.preview-middle{
+    float:left;
+    margin: 12px 7.5%;
+    width:85%; height: ~'calc(92% - 84px)'; // margin-top=> 12*2 + preview-bottom=> 60 = 84
+    position: relative;
+    
+    overflow: hidden;
+}
+.cloned-middle{
+    width: ~'calc(100% * 12)';
+    height: 100%;
+    position:relative;
+    float:left;
+    transition:all 0.4s;
+}
+.clonedContents{
+    width: ~'calc(100% / 12)';
+    float:left;
+    font-family: 'Rajdhani', sans-serif;
+    & > .bottom-div{
+        width:~'calc(100% - 6px)';
+
+        font-family: 'DM Serif Display', serif;
+        font-size: 2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        border-radius: 4px;
+        box-shadow: 3px 3px 3px @shadow2;
+
+        color:@yellowB;
+        background-color: @blue;
+    }
+}
+.preview-bottom{
+    float:left;
+    width: 100%; height:60px;
+    //background: @blue;
+    background: linear-gradient(to bottom right, @brownB-1 40%, @brownB-2);
+
+    color:@yellowB;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 2rem;
+    line-height: 60px;
+    
+    overflow: hidden;
+}
+
+
 
 
 
 .contents{
-    float:right;
+    float:left;
     width: 80%;
     display:grid;
-    grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 0.3fr 1fr 0.7fr;
     grid-gap:10px;
 
@@ -194,35 +330,39 @@ highlight{
     
     position: relative;
     [data-index]{
-        border: 1px solid @green;
+        border: 1px solid @blue;
         border-radius: 4px;
-        height:700px;
+        height:300px;
         overflow: hidden;
-        box-shadow: 6px 6px 6px rgb(41, 41, 41);
+        box-shadow: 3px 3px 3px @shadow2;
         position: relative;
-        // 중요: 짤리는 본문 처리, 본문 폰트 재적용
 
+        font-family: 'Rajdhani', sans-serif;
+        text-align: center;
         
+        // FIXME: 텍스트 넘어가면 그냥 넘기기 속성
+        & > p{
+            display:inline-block;
+            width:90%;
+            margin:20px auto;
+            
+        }
         & > .bottom-div{
             position: absolute;
             top:90%; left:0;
             
             width:100%; height:10%;
             
-            background: linear-gradient(to bottom right, @green 40%, @greenC);
+            background: linear-gradient(to bottom right, @brownB-1 40%, @brownB-2);
             color:@yellow;
             border-radius: 4px 4px 0 0;
-
-            font-family: 'Caveat', cursive;
-            font-weight: bold;
-            text-align: center;
-            font-size:1.5rem;
-            line-height: 70px;
             
-            & > cnt{
-                font-size: 1.8rem;
-                font-weight: bold;
-                // 중요: color:@red; red색상 말고 다른 색상 추가
+            & > .bottom-div-line{
+                position:relative;
+                top:50%;
+                width:90%; height:1px;
+                margin:auto auto;
+                border-bottom:1px solid @yellowB-1;
             }
         }
 
@@ -245,6 +385,9 @@ highlight{
     animation-name: showit;
     animation-duration: 1s;
     z-index: 2;
+    & > .bottom-div{
+        font-family: 'DM Serif Display', serif;
+    }
 }
 .deleted{
     animation-name: hideit;
@@ -269,18 +412,6 @@ highlight{
 
 [data-index='1']{
     & > img{
-        width:100%;
-    }
-} 
-[data-index='2']{
-    display:block;
-    text-align: center;
-    & > p:nth-of-type(2){
-        color:@red;
-        font-weight: bold;
-        font-family: 'Syne Mono', 'monospace';
-    }
-    & > div > img{
         width:100%;
     }
 }
@@ -348,7 +479,7 @@ highlight{
 
     font-size:0.8rem;
     color:@yellow;
-    background: @green;
+    background: linear-gradient(to bottom, @brownB-1 -50%, @blue);
     box-shadow: 5px 7px 7px black;
 
     & > p{

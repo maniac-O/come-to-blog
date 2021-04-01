@@ -1,16 +1,14 @@
 $(document).ready(function(){
     let contents= document.querySelector('.contents');
     let data_index = document.querySelectorAll('[data-index]');
-    let buttons = document.querySelectorAll('wrapnav > ul > li');
     let jqIndex = $('[data-index]');
     let jqI_len = jqIndex.length;
     let contents_div;
-    let p_tag = '<p>&nbsp&nbspLorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?</p>';
+    let p_tag = '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?</p>';
     let oldArray = [];
     let newArray = [];
     let nowIndex;
     let cloned;
-    let navColorIndex = 0;
     let moveNavBar =0;
     let isHeader = false;
     let isScroll = false;
@@ -23,10 +21,109 @@ $(document).ready(function(){
     sortDataIndex();
     insertDivBottom();
     clicked_contents();
+    cloneToPreview();
+    arrowClick();
+    
+
+
+    function insertPreviewIndex(){
+        let clonedIndex = document.querySelectorAll('.clonedContents');
+        for(i=0; i<10;i++){
+            let clonedIndextmp = document.querySelectorAll('.clonedContents .bottom-div');
+            clonedIndextmp[i].innerHTML = "NEWS"+"<cnt>&nbsp"+(i+11)+"</cnt>";
+
+            console.log(clonedIndextmp[i]);
+        }
+    }
+
+    // sidebar내 화살표 클릭 시 preview 이동
+    function arrowClick(){
+        let clonedmiddle = $('.cloned-middle');
+        let clonedwidth = $('.clonedContents').width();
+        let waitClick = true;
+        let clonedIndex = 1;
+        clonedmiddle.css('left', -clonedwidth);
+
+        let buttons = document.querySelectorAll('.sidebar-top-right');
+        buttons[1].addEventListener('click',function(){
+            
+            if(waitClick){
+                waitClick = false;
+                clonedmiddle.css('transition', 'all 0.4s');
+                clonedmiddle.css('left', '+=' + clonedwidth);
+                clonedIndex--;
+                if(!clonedIndex){
+                    setTimeout(function(){
+                        clonedmiddle.css('transition', 'all 0s');
+                        clonedmiddle.css('left', -(clonedmiddle.width() - clonedwidth*2));
+                        clonedIndex=10;
+                    },400);
+                }
+
+
+                // 너무빠른 클릭 방지
+                setTimeout(function(){
+                    waitClick = true;
+                },400);
+            }
+        });
+        buttons[0].addEventListener('click',function(){
+            
+            if(waitClick){
+                waitClick = false;
+                clonedmiddle.css('transition', 'all 0.4s');
+                clonedmiddle.css('left', '-=' + clonedwidth);
+                clonedIndex++;
+                if(clonedIndex==11){
+                    setTimeout(function(){
+                        clonedmiddle.css('transition', 'all 0s');
+                        clonedmiddle.css('left', - (clonedwidth));
+                        clonedIndex=1;
+                    },400);
+                }
+
+                // 너무빠른 클릭 방지
+                setTimeout(function(){
+                    waitClick = true;
+                },400);
+            }
+        });
+    }
+
+
+
+    // sidebar의 preview에 본문내용 clone시키기
+    function cloneToPreview(){
+        let sidebarClone = $('.cloned-middle');
+        for(i=11; i<=contentscnt; i++){
+            let cloned = $(nowIndex[i-1]).clone().appendTo(sidebarClone);
+            cloned.addClass('clonedContents');
+        }
+        // Preview창 middle부분에 Index번호 띄우기
+        insertPreviewIndex();
+
+        let parents = document.querySelector('.cloned-middle');
+        let sidebarfisrt = document.querySelectorAll('.clonedContents')[0]
+        let sidebarlast = document.querySelectorAll('.clonedContents')[9];
+        let cloned_first = sidebarfisrt.cloneNode(true);
+        let cloned_last = sidebarlast.cloneNode(true);
+        $(cloned_first).appendTo('.cloned-middle');
+
+        parents.insertBefore(cloned_last, sidebarfisrt);
+    }
+
+    // 스크롤 시 Preview 따라오기
+    function scrollPreview(){
+        $('.sidebar').css({
+            'position':'fixed',
+            'top':'60px',
+            'width': ($('.wrapmiddle').width()/5)-8,
+        });
+    }
+
 
     // 스크롤 이동 시 네비게이션 바 색깔 변경
     $(window).scroll(function(e){
-        
         if(isScroll){
             isScroll = false;  
             // 스크롤 위치 감지 함수
@@ -60,7 +157,7 @@ $(document).ready(function(){
                 // 현재 위치에 있는 영역만 색깔 변경, 나머지는 색상 제거
                 if(i==location-1){
                     navColorIndex = location-1;
-                    fixedbar[location-1].style.background = '#00171d';
+                    fixedbar[location-1].style.background = '#180900';
                     
                 }else if(i!=location-1){
                     fixedbar[i].style.background = '';
@@ -78,6 +175,7 @@ $(document).ready(function(){
 
     // 스크롤 인식 후 navbar에 fixed 속성 부여
     function navbarPosition(){
+        // scroll시 navbar조작
         navbar = document.querySelector('.wrapnav');
         if(($(window).scrollTop()) >=270){
             navbar.classList.add('fixed-bar');
@@ -92,7 +190,23 @@ $(document).ready(function(){
         else{
             navbar.classList.remove('fixed-bar');
         }
-        
+
+        // scroll시 sidebar조작
+        if(($(window).scrollTop()) >= $(document).height()- ($('.footer').height()+950)){
+            console.log('change');
+            $('.sidebar').css({
+                'position':'relative',
+                'top':$(document).height()- ($('.footer').height()+1500)+'px',
+            });
+        }else if($(window).scrollTop() >= 510){
+            scrollPreview();
+            
+        }else if(($(window).scrollTop()) < 800){
+            $('.sidebar').css({
+                'position':'relative',
+                'top':'0',
+            });
+        }
     }
 
 
@@ -102,7 +216,7 @@ $(document).ready(function(){
     function insertDivBottom(){
         for(let i=1; i<contentscnt+1; i++){
             contents_bottom_div = document.querySelectorAll('.bottom-div');
-            contents_bottom_div[i-1].innerHTML = 'NEWS '+'<cnt>'+i+'</cnt>';
+            contents_bottom_div[i-1].innerHTML = '<div class="bottom-div-line"></div>';
         }
     }
     
@@ -110,29 +224,30 @@ $(document).ready(function(){
     function clicked_contents(){
         Array.prototype.forEach.call(contents_div, function(e){
             e.addEventListener('click',function(){
-                console.log(e);
                 
                 $('.cloned').remove();
                 cloned = $(e).clone().appendTo('.contents');
                 cloned.addClass('cloned');
                 let tmpBottom = document.querySelector('.cloned .bottom-div');
-                tmpBottom.innerText = '>> Click To Close <<';
+                tmpBottom.innerText = 'Click To Close';
 
                 // 클릭된 원본 하이라이트 색 넣기
                 e.style.borderColor = 'red';
 
                 $(cloned).css({
                     'position':'absolute',
-                    "top": ($(window).scrollTop())-300+"px",
+                    "top": ($(window).scrollTop())-450+"px",
                     "left": (($(window).width()-$(".cloned").outerWidth())/4+$(window).scrollLeft())+"px",
                     'width':'40%',
                     'overflow':'hidden',
                     'background':'#d1cb8e'
                 });
                 $(tmpBottom).css({
-                    'color':'#dad75b',
+                    'color':'#dad59e',
+                    'text-decoration':'underline',
+                    'font-family': 'DM Serif Display, serif',
                     'font-size':'2.5rem',
-                    'background': 'linear-gradient(to bottom right, #474747 40%, #2b2b2b)',
+                    'background': 'linear-gradient(to bottom right, #3b1600 40%, #1b0a00)',
                 });
                 addRemove(e, document.querySelector('.cloned'), tmpBottom);
             });
@@ -166,7 +281,7 @@ $(document).ready(function(){
         }
         
 
-        for(let i=1; i<(div_length+13); i++){
+        for(let i=1; i<(div_length+14); i++){
             // 아직 생성되지 않은 곳에 order속성 추가시키기
             
             
@@ -188,7 +303,7 @@ $(document).ready(function(){
             cnt++;
             
         }
-        return div_length+12;
+        return div_length+13;
     }
 
     function insertContents(){
@@ -197,12 +312,12 @@ $(document).ready(function(){
         for(let i=0; i<contentscnt; i++){
             // 본문채우기
             contents_div[i].innerHTML += '<div class="bottom-div"></div>';
-            for(let j=0; j<4; j++){
+            for(let j=0; j<2; j++){
                 
                 if(i==1 && j==1){
-                    contents_div[i].innerHTML +='<p>RESTORANCE IS EVERYWHERE.. MAYBE IN YOUR COMPUTER</p><div><img src="./pic/HEOS01BW.png" alt=""></img></div>'
-                    contents_div[i].innerHTML +=('<div>'+ p_tag + '</div>');
-                    continue;
+                    // 히오스 마크 넣던 흔적
+                    //contents_div[i].innerHTML +=('<div>'+ p_tag + '</div>');
+                    //continue;
                 }
                 
                 contents_div[i].innerHTML += p_tag;
@@ -223,25 +338,10 @@ $(document).ready(function(){
         
         //이거 진짜 노력의 산물인데 좀 더 집중했으면 좋았을껄
         for(let i=0; i<contentscnt; i++){
-            //console.log(i+1,newArray[cnt]);
             if(i+1 == newArray[cnt]){
                 // 이 부분에 'nowIndex[jqI_len+cnt]'이런 모양대신 >> '$(nowIndex[jqI_len+cnt])'이런 모양으로 써야하는 이유는 유사배열이기 때문이다.
-                //console.log('inside i =',i,$(nowIndex[jqI_len+cnt]).data(), newArray[cnt]);
                 $(nowIndex[jqI_len+cnt]).css('order',newArray[cnt]);
                 cnt++;
-            }
-
-            // 한 행마다 3번째 gird는 폰트스타일 변경
-            if(Math.floor( $(nowIndex[i]).data('index')%5) == 0){
-                //console.log(i+1);
-                $(nowIndex[i]).css({'font-family': 'Yatra One, cursive',
-                                    
-                                    'font-size':'1.2rem'});
-            }
-            if(Math.floor( $(nowIndex[i]).data('index')%7) == 0){
-                //console.log(i+1);
-                $(nowIndex[i]).css({'font-family': 'Anton, sans-serif'
-                                    ,'font-size':'1rem'});
             }
         }
         
@@ -286,7 +386,6 @@ $(document).ready(function(){
             }
             tmp = 1;
             for(let i=clicked_location; i<contentscnt+1; i++){
-                //console.log(tmp);
                 $(nowIndex[i-1]).css('order',tmp);
                 tmp++;
             }
