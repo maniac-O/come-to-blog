@@ -6,7 +6,7 @@ $(document).ready(function () {
   var jqIndex = $('[data-index]');
   var jqI_len = jqIndex.length;
   var contents_div;
-  var p_tag = '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?</p>';
+  var p_tag = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?<br><br>';
   var oldArray = [];
   var newArray = [];
   var nowIndex;
@@ -18,7 +18,6 @@ $(document).ready(function () {
   insertContents();
   insertOrder();
   statbar();
-  sortDataIndex();
   insertDivBottom();
   clicked_contents();
   cloneToPreview();
@@ -30,7 +29,6 @@ $(document).ready(function () {
     for (i = 0; i < 10; i++) {
       var clonedIndextmp = document.querySelectorAll('.clonedContents .bottom-div');
       clonedIndextmp[i].innerHTML = "NEWS" + "<cnt>&nbsp" + (i + 11) + "</cnt>";
-      console.log(clonedIndextmp[i]);
     }
   } // sidebar내 화살표 클릭 시 preview 이동
 
@@ -104,7 +102,16 @@ $(document).ready(function () {
     var cloned_first = sidebarfisrt.cloneNode(true);
     var cloned_last = sidebarlast.cloneNode(true);
     $(cloned_first).appendTo('.cloned-middle');
-    parents.insertBefore(cloned_last, sidebarfisrt);
+    parents.insertBefore(cloned_last, sidebarfisrt); // preview영역에 clone 된 이미지들 컬러로 변경 ( src 로케이션 재지정 )
+
+    var sidebarCloneImg = $('.clonedContents p .contents-img');
+    $(sidebarCloneImg[0]).attr('src', './pic/waitingRoom/contents' + nowIndex.length + '.gif');
+
+    for (i = 1; i < sidebarCloneImg.length - 1; i++) {
+      $(sidebarCloneImg[i]).attr('src', './pic/waitingRoom/contents' + (i + 10) + '.gif');
+    }
+
+    $(sidebarCloneImg[sidebarCloneImg.length]).attr('src', './pic/waitingRoom/contents' + 11 + '.gif');
   } // 스크롤 시 Preview 따라오기
 
 
@@ -176,7 +183,6 @@ $(document).ready(function () {
 
 
     if ($(window).scrollTop() >= $(document).height() - ($('.footer').height() + 950)) {
-      console.log('change');
       $('.sidebar').css({
         'position': 'relative',
         'top': $(document).height() - ($('.footer').height() + 1500) + 'px'
@@ -271,6 +277,7 @@ $(document).ready(function () {
       cnt++;
     }
 
+    sortDataIndex();
     return div_length + 13;
   }
 
@@ -279,17 +286,16 @@ $(document).ready(function () {
 
     for (var _i5 = 0; _i5 < contentscnt; _i5++) {
       // 본문채우기
-      contents_div[_i5].innerHTML += '<div class="bottom-div"></div>';
+      var contents_tmp = '';
+      contents_tmp += '<div class="bottom-div"></div>';
+      contents_tmp += "<p><img class='contents-img' src='./pic/contents" + (_i5 + 1) + ".gif'>";
 
       for (var j = 0; j < 2; j++) {
-        if (_i5 == 1 && j == 1) {// 히오스 마크 넣던 흔적
-          //contents_div[i].innerHTML +=('<div>'+ p_tag + '</div>');
-          //continue;
-        }
-
-        contents_div[_i5].innerHTML += p_tag;
+        contents_tmp += p_tag;
       }
 
+      contents_tmp += '</p>';
+      contents_div[_i5].innerHTML += contents_tmp;
       contents_div[_i5].classList = 'gridcontent';
     }
   }
@@ -298,19 +304,26 @@ $(document).ready(function () {
     nowIndex = $('[data-index]');
     var cnt = 0;
 
-    for (var _i6 = 0; _i6 < jqI_len; _i6++) {
-      oldArray[_i6] = oldArray[_i6].index;
-      $(nowIndex[_i6]).css('order', oldArray[_i6]);
-    } //이거 진짜 노력의 산물인데 좀 더 집중했으면 좋았을껄
+    for (var _i6 = 0; _i6 < nowIndex.length; _i6++) {
+      $(nowIndex[_i6]).css('order', _i6 + 1);
+    } // 2021-04-03 수정 전
 
-
-    for (var _i7 = 0; _i7 < contentscnt; _i7++) {
-      if (_i7 + 1 == newArray[cnt]) {
-        // 이 부분에 'nowIndex[jqI_len+cnt]'이런 모양대신 >> '$(nowIndex[jqI_len+cnt])'이런 모양으로 써야하는 이유는 유사배열이기 때문이다.
-        $(nowIndex[jqI_len + cnt]).css('order', newArray[cnt]);
-        cnt++;
-      }
+    /*
+    for(let i=0; i<jqI_len; i++){
+        oldArray[i] = oldArray[i].index;
+        $(nowIndex[i]).css('order',oldArray[i]);
     }
+    
+    //이거 진짜 노력의 산물인데 좀 더 집중했으면 좋았을껄
+    for(let i=0; i<contentscnt; i++){
+        if(i+1 == newArray[cnt]){
+            // 이 부분에 'nowIndex[jqI_len+cnt]'이런 모양대신 >> '$(nowIndex[jqI_len+cnt])'이런 모양으로 써야하는 이유는 유사배열이기 때문이다.
+            $(nowIndex[jqI_len+cnt]).css('order',newArray[cnt]);
+            cnt++;
+        }
+    }
+    */
+
   }
 
   function statbar() {
@@ -326,7 +339,7 @@ $(document).ready(function () {
   var navcnt = 1;
 
   function sortDataIndex() {
-    $('.contents').html($('.gridcontent').sort(function (a, b) {
+    $('.contents').html($('[data-index]').sort(function (a, b) {
       return $(a).data('index') - $(b).data('index');
     }));
     nowIndex = $('[data-index]');
@@ -341,16 +354,16 @@ $(document).ready(function () {
       var tmp = 1;
       var _goto = 0;
 
-      for (var _i8 = 1; _i8 < clicked_location; _i8++) {
+      for (var _i7 = 1; _i7 < clicked_location; _i7++) {
         _goto = contentscnt - clicked_location;
-        $(nowIndex[_i8 - 1]).css('order', _goto + tmp + 1);
+        $(nowIndex[_i7 - 1]).css('order', _goto + tmp + 1);
         tmp++;
       }
 
       tmp = 1;
 
-      for (var _i9 = clicked_location; _i9 < contentscnt + 1; _i9++) {
-        $(nowIndex[_i9 - 1]).css('order', tmp);
+      for (var _i8 = clicked_location; _i8 < contentscnt + 1; _i8++) {
+        $(nowIndex[_i8 - 1]).css('order', tmp);
         tmp++;
       }
     });

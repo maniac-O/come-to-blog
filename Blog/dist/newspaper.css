@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/dmserifdisplay/v4/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/dmserifdisplay/v5/-nFnOHM81r4j6k0gjAW3mujVU2B2K_c.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Poiret One';
@@ -72,16 +72,45 @@ highlight {
   height: 300px;
 }
 .header {
-  width: 100%;
-  height: 70%;
+  width: 90%;
+  height: 80%;
   padding-top: 0px;
+  position: relative;
   font-size: 30px;
   line-height: calc(70% + 50px);
   float: left;
+  margin: 10px 5%;
 }
-.header > p {
+.header > .header-text {
+  position: relative;
+  float: left;
+  width: calc(100% - 40% - 80px);
+  height: 100%;
+}
+.header > .header-text > h2 {
+  margin-top: 0;
+}
+.header > .header-text > p {
   margin: 0;
   display: block;
+}
+.header > .header-left-div {
+  position: relative;
+  float: left;
+  width: 20%;
+  height: 100%;
+}
+.header > .header-left-div > .header-left-img {
+  top: 10%;
+  left: 20%;
+  height: 70%;
+  position: relative;
+}
+.header > .header-right-div {
+  position: relative;
+  float: left;
+  width: 20%;
+  height: 100%;
 }
 .wrapnav {
   width: calc(100% - 30px);
@@ -150,9 +179,28 @@ highlight {
   float: left;
   margin-top: 9px;
   border-radius: 4px;
-  box-shadow: 6px 6px 6px black;
-  background: #3b1600;
-  background: linear-gradient(to bottom, #02343F 70%, #3b1600);
+  box-shadow: 2.5px 2.5px 2.5px black;
+  position: relative;
+  border: 2px solid #02343F;
+  color: #02343F;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: bold;
+  overflow: hidden;
+}
+.statbar-b > h1 {
+  margin: 5px 0 0 0;
+  color: #9e002f;
+  font-weight: bold;
+  text-shadow: 2px 1px 2px #444444;
+}
+.statbar-b > p {
+  position: relative;
+  margin: 15px 5%;
+  overflow: hidden;
+}
+.statbar-b > p > satisfied {
+  color: #9e002f;
 }
 .wrapmiddle {
   float: left;
@@ -170,7 +218,7 @@ highlight {
 .sidebar {
   float: left;
   width: 100%;
-  box-shadow: 3px 3px 3px #444444;
+  box-shadow: 2.5px 2.5px 2.5px #444444;
   border: 1px solid #4d2915;
 }
 .sidebar > ul > li:nth-of-type(1) {
@@ -250,6 +298,13 @@ highlight {
   width: calc(100% / 12);
   float: left;
   font-family: 'Rajdhani', sans-serif;
+  word-break: break-all;
+  position: relative;
+}
+.clonedContents > p > .contents-img {
+  float: left;
+  position: relative;
+  width: 60%;
 }
 .clonedContents > .bottom-div {
   width: calc(100% - 6px);
@@ -258,9 +313,9 @@ highlight {
   font-weight: bold;
   text-decoration: underline;
   border-radius: 4px;
-  box-shadow: 3px 3px 3px #444444;
+  box-shadow: 2.5px 2.5px 2.5px #444444;
   color: #d1cb8e;
-  background-color: #02343F;
+  background-color: #3b1600;
 }
 .preview-bottom {
   float: left;
@@ -286,16 +341,22 @@ highlight {
   position: relative;
 }
 .contents [data-index] {
-  border: 1px solid #02343F;
+  border: 2px solid #02343F;
   border-radius: 4px;
   height: 300px;
   overflow: hidden;
-  box-shadow: 3px 3px 3px #444444;
+  box-shadow: 2.5px 2.5px 2.5px #444444;
   position: relative;
   font-family: 'Rajdhani', sans-serif;
   text-align: center;
 }
+.contents [data-index] > p > .contents-img {
+  width: 25%;
+  float: left;
+  margin-top: 20px;
+}
 .contents [data-index] > p {
+  word-break: break-all;
   display: inline-block;
   width: 90%;
   margin: 20px auto;
@@ -319,10 +380,6 @@ highlight {
   border-bottom: 1px solid #dad59e;
 }
 .contents [data-index] > p:nth-of-type(1):first-letter {
-  font-weight: bold;
-  font-size: 1.7rem;
-}
-.contents [data-index] > div > p:nth-of-type(1):first-letter {
   font-weight: bold;
   font-size: 1.7rem;
 }

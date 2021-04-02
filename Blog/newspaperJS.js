@@ -4,7 +4,7 @@ $(document).ready(function(){
     let jqIndex = $('[data-index]');
     let jqI_len = jqIndex.length;
     let contents_div;
-    let p_tag = '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?</p>';
+    let p_tag = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex possimus ipsum, beatae unde doloribus repellat odio tempora omnis earum quo? Doloribus incidunt labore at commodi veritatis. Accusamus nihil eaque modi?<br><br>';
     let oldArray = [];
     let newArray = [];
     let nowIndex;
@@ -18,7 +18,6 @@ $(document).ready(function(){
     insertContents();
     insertOrder();
     statbar();
-    sortDataIndex();
     insertDivBottom();
     clicked_contents();
     cloneToPreview();
@@ -31,8 +30,6 @@ $(document).ready(function(){
         for(i=0; i<10;i++){
             let clonedIndextmp = document.querySelectorAll('.clonedContents .bottom-div');
             clonedIndextmp[i].innerHTML = "NEWS"+"<cnt>&nbsp"+(i+11)+"</cnt>";
-
-            console.log(clonedIndextmp[i]);
         }
     }
 
@@ -110,6 +107,16 @@ $(document).ready(function(){
         $(cloned_first).appendTo('.cloned-middle');
 
         parents.insertBefore(cloned_last, sidebarfisrt);
+
+
+        // preview영역에 clone 된 이미지들 컬러로 변경 ( src 로케이션 재지정 )
+        let sidebarCloneImg = $('.clonedContents p .contents-img');
+        $(sidebarCloneImg[0]).attr('src','./pic/waitingRoom/contents'+(nowIndex.length)+'.gif');
+        for(i=1; i<sidebarCloneImg.length-1; i++){
+            $(sidebarCloneImg[i]).attr('src','./pic/waitingRoom/contents'+(i+10)+'.gif');
+        }
+        $(sidebarCloneImg[sidebarCloneImg.length]).attr('src','./pic/waitingRoom/contents'+(11)+'.gif');
+        
     }
 
     // 스크롤 시 Preview 따라오기
@@ -193,7 +200,6 @@ $(document).ready(function(){
 
         // scroll시 sidebar조작
         if(($(window).scrollTop()) >= $(document).height()- ($('.footer').height()+950)){
-            console.log('change');
             $('.sidebar').css({
                 'position':'relative',
                 'top':$(document).height()- ($('.footer').height()+1500)+'px',
@@ -303,26 +309,24 @@ $(document).ready(function(){
             cnt++;
             
         }
+        sortDataIndex();
         return div_length+13;
     }
 
     function insertContents(){
         contents_div = document.querySelectorAll('[data-index]');
-        
         for(let i=0; i<contentscnt; i++){
             // 본문채우기
-            contents_div[i].innerHTML += '<div class="bottom-div"></div>';
+            let contents_tmp = '';
+            contents_tmp += '<div class="bottom-div"></div>';
+            contents_tmp += "<p><img class='contents-img' src='./pic/contents" + (i+1) + ".gif'>";
+            
             for(let j=0; j<2; j++){
                 
-                if(i==1 && j==1){
-                    // 히오스 마크 넣던 흔적
-                    //contents_div[i].innerHTML +=('<div>'+ p_tag + '</div>');
-                    //continue;
-                }
-                
-                contents_div[i].innerHTML += p_tag;
+                contents_tmp += p_tag;
             }
-            
+            contents_tmp += '</p>';
+            contents_div[i].innerHTML += contents_tmp;
             contents_div[i].classList='gridcontent';
         }
     }
@@ -330,7 +334,13 @@ $(document).ready(function(){
         nowIndex = $('[data-index]');
         let cnt = 0;
         
-        
+
+        for(let i=0; i<nowIndex.length; i++){
+            $(nowIndex[i]).css('order',i+1);
+        }
+
+        // 2021-04-03 수정 전
+        /*
         for(let i=0; i<jqI_len; i++){
             oldArray[i] = oldArray[i].index;
             $(nowIndex[i]).css('order',oldArray[i]);
@@ -344,7 +354,7 @@ $(document).ready(function(){
                 cnt++;
             }
         }
-        
+        */
     }
 
     function statbar(){
@@ -363,7 +373,7 @@ $(document).ready(function(){
     function sortDataIndex(){
 
         $('.contents').html(
-            $('.gridcontent').sort(function(a,b){
+            $('[data-index]').sort(function(a,b){
                 return $(a).data('index') - $(b).data('index');
         })
         );
