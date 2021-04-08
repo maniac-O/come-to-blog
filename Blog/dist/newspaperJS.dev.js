@@ -22,6 +22,46 @@ $(document).ready(function () {
   clicked_contents();
   cloneToPreview();
   arrowClick();
+  headerHover();
+  hoverbar();
+
+  function headerHover() {
+    clonedH2 = $('.header-rolling h2').clone();
+    $(clonedH2).appendTo('.header-rolling');
+    $('.header-text h2:nth-of-type(2)').addClass('clonedH2');
+    originalH2 = $('.header-text h2');
+    clonedH2 = $('.clonedH2');
+    $(originalH2[1]).css({});
+    $('.header-text h2').hover(function () {
+      originalH2 = $('.header-text h2');
+      clonedH2 = $('.clonedH2');
+      $(originalH2).css({
+        'transition': 'all 0.5s',
+        'transform': 'rotateX(-90deg)'
+      });
+      $(clonedH2).css({
+        'transition': 'all 1s',
+        'transform': 'rotateX(0deg)'
+      });
+    });
+  }
+
+  function hoverbar() {
+    // 헤더 메뉴바 마우스 호버 이벤트
+    $('.menu-button').mouseover(function () {
+      $('.hoverbar').css('display', 'flex');
+    });
+    $('.hoverbar').mouseover(function () {
+      $('.hoverbar').css('display', 'flex');
+    }); // 헤더 메뉴바 마우스 아웃 이벤트
+
+    $('.menu-button').mouseout(function () {
+      $('.hoverbar').css('display', 'none');
+    });
+    $('.hoverbar').mouseout(function () {
+      $('.hoverbar').css('display', 'none');
+    });
+  }
 
   function insertPreviewIndex() {
     var clonedIndex = document.querySelectorAll('.clonedContents');
@@ -219,7 +259,8 @@ $(document).ready(function () {
           'position': 'absolute',
           "top": $(window).scrollTop() - 450 + "px",
           "left": ($(window).width() - $(".cloned").outerWidth()) / 4 + $(window).scrollLeft() + "px",
-          'width': '40%',
+          'width': '60%',
+          'height': '20%',
           'overflow': 'hidden',
           'background': '#d1cb8e'
         });
