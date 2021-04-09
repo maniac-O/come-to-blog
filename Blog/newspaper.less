@@ -1,5 +1,7 @@
 @blue : #02343F;
-@blueB : #034a5a;
+@blueB : #2b4353;
+@blueC : #27334b;
+@blue-icon : #011d25;
 @brownA : #4d2915;
 @brownB-1: #3b1600;
 @brownB-2 : #1b0a00;
@@ -7,10 +9,11 @@
 @shadow2 : #444444;
 @red : #9e002f;
 @yellow : #F0EDCC;
+@yellow-header : #e0dcb0;
 @yellowB-1 : #dad59e;
 @yellowB : #d1cb8e;
 @yellowC : #c5bd77;
-@yellow-menubar:#ffbb00;
+@yellow-menubar:#ebbb39;
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poiret+One&display=swap');    // header font
 @import url('https://fonts.googleapis.com/css2?family=Charm&display=swap');                                 // bottom-div font
@@ -21,15 +24,10 @@
 
 // 컨셉 or 기능에 하나만 하자 둘다 가져갈려고 너무 애매해진다.
 // TODO: js코드 최적화 및 주석달고 탭창 아이콘 추가
-// TODO: 하스스톤스럽게 디자인 추가해서 마무리하자
-// 하스스톤을 조사해서 모방
 // TODO: 뉴스시스템이기때문에 페북 공유같은 기능 ㄱㄱ
 // 해리포터 신문 조사
 
-// statbar-b 폰트 재조정
-// 본문 내 사진 일정한 크기 일정한 위치로 조정
 // 롤링 바 추가
-
 // header-nav 내의 값 flex로 변경
 
 
@@ -80,40 +78,144 @@ highlight{
     box-shadow: 4px 4px 4px black;
     margin-top: 10px;
 
-    width:100%;
-    height:210px;
+    width:70%; height:210px;
+    margin:0 15%;
 }
 .header-menu{
-    width:80%; height:20%;
-    margin:10px auto 0 auto;
+    width:95%; height:20%;
+    margin:20px auto 10px auto;
+
+    & > div{
+        width:50px; height:50px;
+        border-radius: 100%;
+        background-color: @blue-icon;
+        float:right;
+        margin-left:5px;
+        & > div{
+            width:40px; height:40px;
+            float:center;
+            margin:5px;
     
+            border-radius: 100%;
+            background-image: url('../pic/social-media-icons.svg');
+            background-repeat: no-repeat;
+        }
 
-    & > .menu-button{
-        width:25px; height:21px;
+        &:hover{
+            transition: all 0.4s;
+            transform: scale(1.15);
+        }
+    } 
+}
+#header-icon4{
+    background-position: -54px -65px;
+    background-size: 470%;        
+}
+#header-icon3{
+    background-position: -54px -27px;
+    background-size: 470%;        
+}
+#header-icon2{
+    background-position: -94px -65px;
+    background-size: 470%;        
+}
+#header-icon1{
+    background-position: -134px -27px;
+    background-size: 470%;        
+}
 
+
+.header{
+    width:80%;
+    height:50%;
+    padding-top: 0px;
+    position: relative;
+
+    font-size: 29px;
+
+    float:left;
+    margin:0 10%;
+    & > div{
+        margin:auto;
+
+    }
+    & > .header-text {
         position: relative;
-        top:10px; left:40px;
-        
+        float:left;
 
-        & > img{
-            width:25px;
-            transition: all 0.7s;
-            
-            &:hover{
-                transform: rotate(90deg);
+        display: inline-block;
+
+        width: ~'calc(100% - 40%)'; height:30px;
+        line-height: 30px;
+
+        color:@yellow-header;
+        & > .header-rolling{
+            & >.originalH2 > section1{
+                color:@yellow-menubar;
+            }
+
+            & > h2{
+                margin:0;
+                font-weight: normal;
+    
+                display:block;
             }
         }
     }
     
+    & > .header-left-div{
+        position: relative;
+        float:left;
+
+        width:20%; height: 100%;
+
+        
+
+        & > .menu-button{
+            width:40px; height:27px;
+            font-size:0;
+            position: absolute;
+            margin:0;
+            top:0px; right:50%;
+
+            background:@blue;
+    
+            & > .menuline{
+                width:40px; height:5px;
+                background:@yellow;
+                border-radius: 2px;
+                margin-bottom:6px;
+                box-shadow:0 1px 3px rgba(0,0,0,.5);
+                float:left;
+
+                transition: all 1s;
+            }
+        }
+    }
+    & > .header-right-div{
+        position: relative;
+        float:left;
+
+        width:20%; height: 100%;
+
+        & > .header-date{
+            position: relative;
+            float:right; bottom:0;
+            font-size: 1.2rem;
+        }
+    }
 }
 .hoverbar{
-    width:80%; height:400px;
-    background:#034a5a;
+    font-family: 'Malgun Gothic';
+    width:1100px; height:400px;
+    background: @blue;
+    border:0.1px solid @yellow-header;
     float: left;
     position: absolute;
-    top:45px;
+    top:25px; left: 0px;
 
     border-radius: 7px;
+    box-shadow: 3px 3px 3px black;
 
     z-index: 10;
     display:none;
@@ -124,10 +226,11 @@ highlight{
         
 
         & > li{
-            font-family: sans-serif;
+            
             padding:5px;
             margin-top: 5px;
-            border-bottom:1px solid white;
+            padding:0 20px;
+            border-bottom:1px solid @yellow-header;
             bottom:0;
 
             overflow: hidden;
@@ -135,19 +238,22 @@ highlight{
             white-space: nowrap;
 
             height:~'calc(100%/6 - 5px)';
-            line-height: ~'calc((100%*3))';
+            line-height: ~'calc((100%*4))';
 
-            font-size:0.9rem; 
-            color:white;
+            font-size:0.95rem; 
+            color:@yellow;
+            text-shadow: 2px 2px 2px black;
 
+            text-align: left;
             &::first-letter{
                 text-transform: uppercase;
             }
             text-transform: lowercase;
 
             &:nth-of-type(1){
+                line-height: ~'calc((100%*2))';
                 text-transform: uppercase;
-                font-size:1.2rem; 
+                font-size:1.4rem; 
                 font-weight: bold;
 
                 color:@yellow-menubar;
@@ -161,64 +267,47 @@ highlight{
     }
 }
 
-.header{
-    width:80%;
-    height:50%;
-    padding-top: 0px;
-    position: relative;
+.header-rolling{
+    width:90%; height:300%;
+    position: absolute;
+    margin: 0 5%;
+    top: ~'calc(-100%)';
+    text-align: center;
 
-    font-size: 40px;
-
-    float:left;
-    margin:0 10%;
-    & > div{
-        margin:auto;
-    }
-    & > .header-text {
-        position: relative;
+    & > h2{
         float:left;
+        position: absolute;
+    }
 
-        display: inline-block;
-
-        width: ~'calc(100% - 40%)'; height:40px;
-        line-height: 40px;
-        & > .header-rolling > h2{
-            margin:0;
-            font-weight: normal;
-
-            display:block;
-            position: relative;
-        }
-        .clonedH2{
-            transform : rotateX(90deg);
+    & > .originalH2{
+        width:100%;
+        
+        & > section1{
+            min-width: 264px;
             transform-origin: top;
-            display:inline-block;
+        }
+        & > section2{
+            transform-origin: bottom;
+        }
+        & > section1, section2{
+            display:block;
+            float:left;
         }
     }
     
-    & > .header-left-div{
-        position: relative;
-        float:left;
-
-        width:20%; height: 100%;
-
-        & > .header-left-img{
-            height:70%;
-            position: relative;
-            
+    & > .clonedH2First{
+        transition: all 0s;
+        transform: rotateX(90deg) translateY(0px);
+        transform-origin: top;
+        & > section2{
+            color:@yellow-menubar;
         }
     }
-    & > .header-right-div{
-        position: relative;
-        float:left;
-
-        width:20%;
+    & > .clonedH2Second{
+        transition: all 0s;
+        transform: rotateX(90deg) translateY(0px);
+        transform-origin: bottom;
     }
-}
-.header-rolling{
-    width:100%; height:300%;
-    position: absolute;
-    top: ~'calc(-100%)';
 }
 
 
@@ -253,7 +342,7 @@ highlight{
 }
 .fixed-bar{
     position: fixed;
-    top:0; 
+    top:0; left:0;
     width: ~"calc(100% - 60px)"; height: 50px;  
 
 
@@ -275,10 +364,10 @@ highlight{
 .statbar{
     float:left;
 
-    width:100%; height: 53px;
+    width:70%; height: 53px;
     border-radius: 4px;
 
-    margin-top:15px;
+    margin: 15px 15% 0 15%;
     text-align: center;
     background:@blue;
     color:@yellow;
@@ -295,11 +384,9 @@ highlight{
     }
 }
 .statbar-b{
-    width:100%; height:146px;
+    width:70%; height:110px;
     float:left;
-    margin-top:9px;
-    //border-radius: 4px;
-    //box-shadow: 2.5px 2.5px 2.5px black;
+    margin: 5px 15% 0;
     position: relative;
 
     
@@ -310,6 +397,8 @@ highlight{
     text-align: center;
     font-family: 'Rajdhani', sans-serif;
     font-weight: bold;
+    font-size:1rem;
+    text-shadow: 0px 1px 1px @blue;
 
     overflow: hidden;
     & > div{
@@ -323,9 +412,11 @@ highlight{
         & > p{
             position: relative;
             margin:20px 5%;
+            margin-top:10px;
             overflow: hidden;
                 & > satisfied{
                     color: @red;
+                    text-shadow: 0px 1px 1px @brownA;
                 }
         }
     }
@@ -337,19 +428,18 @@ highlight{
 .wrapmiddle{
     float:left;
     color: @blue;
-    width: 100%; height:100%;
+    width: 70%; height:100%;
+    margin:0 15%;
 }
 .wrap-sidebar{
     float:left;
-    width : ~'calc(20% - 8px)';
+    width: 24%;
     height:100%;
     margin-top:15px;
     margin-right:6px;
 }
 .sidebar{
     float:left;
-    
-
     width: 100%;
 
     box-shadow: 2.5px 2.5px 2.5px @shadow2;
@@ -465,7 +555,7 @@ highlight{
     text-align: center;
     font-weight: bold;
     text-decoration: underline;
-    font-size: 2rem;
+    font-size: 1.6rem;
     line-height: 60px;
     
     overflow: hidden;
@@ -476,37 +566,37 @@ highlight{
 
 
 .contents{
-    float:left;
-    width: 80%;
+    float:right;
+    width: 75%;
     display:grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 0.3fr 1fr 0.7fr;
     grid-gap:10px;
 
     margin-top:15px;
+
+    font-size:1rem;
     
     position: relative;
     [data-index]{
         border: 2px solid @blue;
         border-radius: 4px;
-        height:300px;
+        height:200px;
         overflow: hidden;
-        box-shadow: 2.5px 2.5px 2.5px @shadow2;
+        box-shadow: 2px 2px 2px @shadow2;
         position: relative;
 
         font-family: 'Rajdhani', sans-serif;
         text-align: center;
         & > p > .contents-img{
-            width:25%; 
+            width:30%; 
             float:left;
-            margin-top:20px;
         }
         & > p{
             word-break: break-all;
 
             display:inline-block;
             width:90%;
-            margin:20px auto;
+            margin:10px auto;
             
         }
         & > .bottom-div{
@@ -564,61 +654,6 @@ highlight{
     to{
         opacity: 0;
     }
-}
-
-[data-index='1']{
-    & > img{
-        width:100%;
-    }
-}
-[data-index='4']{
-    & > div:nth-of-type(1){
-        width:45%;
-        float:left;
-        height: 45%;
-        overflow: hidden;
-        & > img{
-            position:relative;
-            width:90%;
-            top:10px;
-            left:10px;
-        }
-    }
-    & > div:nth-of-type(2){
-        width:45%;
-        float:left;
-        height: 45%;
-        overflow: hidden;
-    }
-}
-[data-index='6']{
-    & > div:nth-of-type(1){
-        width:70%;
-        float:left;
-        height: 50%;
-        overflow: hidden;
-        & > img{
-            position:relative;
-            width:90%;
-            top:10px;
-            left:10px;
-        }
-    }
-    & > div:nth-of-type(2){
-        width:25%;
-        height: 48%;
-        float:left;
-        overflow: hidden;
-    }
-}
-[data-index='9']{
-    position: relative;
-    & > div{
-        position: absolute;
-        top:25%;
-        left:20%;
-    }
-    
 }
 
 

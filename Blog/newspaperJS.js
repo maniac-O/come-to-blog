@@ -24,31 +24,102 @@ $(document).ready(function(){
     arrowClick();
     headerHover();
     hoverbar();
+    makeDate()
+    setInterval(makeDate,1000);
+    
+    $(window).resize(function(){
+        headerHover();
+    });
 
 
-
+    function makeDate(){
+        let headerDate = document.querySelector('.header-date');
+        headerDate.innerHTML = (new Date().toLocaleString());
+    }
 
     function headerHover(){
-        clonedH2 = $('.header-rolling h2').clone();
+        
+        // 웹 창이 작을 경우 header title을 재정렬 해줌
+        if($(window).width() < 1740 ){
+            rollingWidth = $('.header-text').width();
+            needMargin = (rollingWidth - 260)/2;
+            rollingWidth = rollingWidth - needMargin*2;
+            $('.header-rolling').css({
+                'margin': '0 ' + needMargin+'px',
+                'width':  rollingWidth+'px',
+            });
+        }
+        $('.header-rolling h2').css(
+            'top', $('.header-rolling').height()/3
+        );
+
+        clonedH2 = $('.header-rolling h2:nth-of-type(1)').clone();
         $(clonedH2).appendTo('.header-rolling');
-        $('.header-text h2:nth-of-type(2)').addClass('clonedH2');
+        clonedH2 = $('.header-rolling h2:nth-of-type(1)').clone();
+        $(clonedH2).appendTo('.header-rolling');
+        
+        $('.header-text h2:nth-of-type(1)').addClass('clonedH2 clonedH2First');
+        $('.header-text h2:nth-of-type(3)').addClass('clonedH2 clonedH2Second');
         
 
-        originalH2 = $('.header-text h2');
+        originalH2 = $('.header-text h2:nth-of-type(2)');
+        $('.header-text h2:nth-of-type(2)').addClass('originalH2');
         clonedH2 = $('.clonedH2');
         $(originalH2[1]).css({
             
         });
-        $('.header-text h2').hover(function(){
-            originalH2 = $('.header-text h2');
-            clonedH2 = $('.clonedH2');
-            $(originalH2).css({
-                'transition':'all 0.5s',
-                'transform':'rotateX(-90deg)',
+
+        originalsection1 = $('.originalH2 section1');
+        $(originalsection1).text('THIS IS BLOG\u00A0');
+        originalsection2 = $('.originalH2 section2');
+        clonedH2 = $('.clonedH2');
+
+        $('.clonedH2First section1').css({
+            'opacity':'0',
+        });
+        $('.clonedH2Second section2').css({
+            'opacity':'0',
+        });
+        
+
+        $('.header-text h2').mouseover(function(){
+            
+            $(originalsection1).css({
+                'transition':'all 0.3s',
+                'transform':'rotateX(90deg)',
             });
-            $(clonedH2).css({
-                'transition':'all 1s',
+            $(originalsection2).css({
+                'transition':'all 0.3s',
+                'transform':'rotateX(90deg)',
+            });
+            $(clonedH2[0]).css({
+                'transition':'all 0.7s',
                 'transform':'rotateX(0deg)',
+                'transform-origin':'bottom',
+            });
+            $(clonedH2[1]).css({
+                'transition':'all 0.7s',
+                'transform':'rotateX(0deg)',
+                'transform-origin':'top',
+            });
+        });
+        $('.header-text h2').mouseout(function(){
+            
+            $(originalsection1).css({
+                'transition':'all 0.7s',
+                'transform':'rotateX(0deg)',
+            });
+            $(originalsection2).css({
+                'transition':'all 0.7s',
+                'transform':'rotateX(0deg)',
+            });
+            $(clonedH2[0]).css({
+                'transition':'all 0.3s',
+                'transform':'translateY(-29px) rotateX(90deg)',
+            });
+            $(clonedH2[1]).css({
+                'transition':'all 0.3s',
+                'transform':'translateY(29px) rotateX(90deg)',
             });
         });
     }
@@ -59,21 +130,51 @@ $(document).ready(function(){
 
 
     function hoverbar(){
-
+        let menuline = $('.menuline');
         // 헤더 메뉴바 마우스 호버 이벤트
-        $('.menu-button').mouseover(function(){
+        function movemenuline(){
             $('.hoverbar').css('display','flex');
+            
+            $(menuline[0]).css({
+                'transform':'translateY(11px) rotate(40deg)',
+            });
+            $(menuline[1]).css({
+                'opacity':'0'
+            });
+            $(menuline[2]).css({
+                'transform':'translateY(-11px) rotate(-40deg)',
+            });
+        }
+        function stopmenuline(){
+            $('.hoverbar').css('display','none');
+            
+            $(menuline[0]).css({
+                'transform':'rotate(0deg)',
+            });
+            $(menuline[1]).css({
+                'opacity':'1'
+            });
+            $(menuline[2]).css({
+                'transform':'rotate(0deg)',
+            });
+        }
+
+
+        $('.menu-button').mouseover(function(){
+            movemenuline();
         });
         $('.hoverbar').mouseover(function(){
             $('.hoverbar').css('display','flex');
+            movemenuline();
         });
 
         // 헤더 메뉴바 마우스 아웃 이벤트
         $('.menu-button').mouseout(function(){
-            $('.hoverbar').css('display','none');
+            stopmenuline();
         });
         $('.hoverbar').mouseout(function(){
             $('.hoverbar').css('display','none');
+            stopmenuline();
         });
         
     }
@@ -177,8 +278,8 @@ $(document).ready(function(){
     function scrollPreview(){
         $('.sidebar').css({
             'position':'fixed',
-            'top':'60px',
-            'width': ($('.wrapmiddle').width()/5)-8,
+            'top':'70px',
+            'width': ($('.wrapmiddle').width()/10*2.4),
         });
     }
 
@@ -258,7 +359,7 @@ $(document).ready(function(){
                 'position':'relative',
                 'top':$(document).height()- ($('.footer').height()+1500)+'px',
             });
-        }else if($(window).scrollTop() >= 510){
+        }else if($(window).scrollTop() >= 410){
             scrollPreview();
             
         }else if(($(window).scrollTop()) < 800){

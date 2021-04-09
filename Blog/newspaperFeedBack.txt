@@ -2,6 +2,7 @@
 
 
 // 중요: newspaperJS2.js 코드는 newpaperJS.js의 파일을 수정한 파일이다.
+// 수정 시간이 작성되지 않은 부분은 2021-03-29 작성됨
 
 
 // FIXME:FIXME: 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 문제점 FIXME:FIXME:
@@ -38,6 +39,11 @@
 // sidebar가 없어서 더 꽉 차있는 느낌이 드는건지 모르겠다. 본문만 잔뜩 차있으니깐 사실 눈에 보기에도 별로다.
 // 본문 내용을 한 눈에 볼수있는 것 or 다른 정보를 재공하는 영역이 추가로 있어야 짜임새도 있어보이고 여유도 있어보이는 것 같다.
 
+
+// 2021-04-10
+// 이전에 본 내용인데 숙련되지 않은 상태에서 컨셉과 기능을 둘 다 가져가려니 상당히 촌스럽고 어디에도 비중을 가져가지 못한 애매한 사이트였다.
+// 또한 페이지에 욕심을 부리면 점점 촌스러워지고 혼란스럽다. 덜어내는것이 중요하다. header도 글자 꽉꽉 채우고 넓이 높이 둘다 크고 모든게 컸다.
+// 페이지의 양 옆을 비우는게 생각보다 중요하다.
 
 
 // NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:NOTE:
