@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: #AAA;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: black;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.header-left {
+  font-size: 1.5rem;
+  padding: 8px 12px;
+}
+.header-left > a {
+  color: white;
+}
+.header-right {
+  right: 15px;
+  padding: 10px 12px;
+}
+.fa-youtube {
+  color: red;
+}
+.fa-search,
+.fa-ellipsis-v {
+  color: white;
+}
+section {
+  background: black;
+  text-align: center;
+}
+iframe {
+  width: 100%;
+  max-width: 1000px;
+}
+.wrap-under {
+  display: flex;
+  margin: 0 2%;
+  flex-direction: column;
+}
+.intro {
+  flex: 1 1 50%;
+}
+.intro > div {
+  margin-top: 8px;
+}
+.intro-tag {
+  color: #3ea6ff;
+}
+.intro-date {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+.intro-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+.intro-buttons > a {
+  text-align: center;
+}
+.intro-buttons > a > i > div {
+  font-weight: normal;
+  font-size: 0.8rem;
+  padding-top: 10px;
+}
+.intro-buttons > a:nth-of-type(1) {
+  color: blue;
+}
+.intro-buttons > a:nth-of-type(1) > i > div {
+  color: #aaa;
+}
+.intro-profile {
+  display: flex;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.intro-profile > div:nth-of-type(1) {
+  display: flex;
+}
+.intro-profile > div > img {
+  width: 3em;
+  border-radius: 100%;
+}
+.intro-profile > div > div:nth-of-type(1) > div:nth-of-type(2) {
+  font-size: 0.7rem;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.list {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+}
+.contents {
+  padding: 10px;
+  display: flex;
+}
+.contents > div:nth-of-type(1) {
+  flex: 1 1 35%;
+}
+.contents > div:nth-of-type(1) > img {
+  width: 100%;
+}
+.contents > div:nth-of-type(2) {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+}
+.contents > i {
+  flex: 1 1 5%;
+  color: black;
+}
+@media screen and (min-width: 1080px) {
+  .wrap-under {
+    flex-direction: row;
+  }
+}
