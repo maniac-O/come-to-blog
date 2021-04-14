@@ -48,6 +48,7 @@ $(document).ready(function(){
             dataType : 'json',
             type : 'GET',
             success: function(data){
+                
                 let $Icon = (data.weather[0].icon);
                 let $Temp = Math.floor(data.main.temp) + 'º';
                 let $city = data.name;

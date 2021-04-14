@@ -25,6 +25,7 @@ $(document).ready(function () {
   makeDate();
   getWeather();
   setInterval(makeDate, 1000);
+  resizeTitle();
   $(window).resize(function () {
     resizeTitle();
   });
