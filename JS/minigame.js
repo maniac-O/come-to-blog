@@ -1,6 +1,7 @@
 'use strict';
 $(document).ready(() => {
     class conMake {
+        // 생성자 함수 makeConObject에서 new로 만들때 호출됨
         constructor(cloth, color, gender, size) {
             this.cloth = cloth;
             this.color = color;
@@ -8,6 +9,7 @@ $(document).ready(() => {
             this.size = size;
         }
 
+        // 인자 랜덤 생성 함수
         makeFactor() {
             let clothArray = [
                 '<i class="fas fa-bread-slice"></i>',
@@ -24,9 +26,13 @@ $(document).ready(() => {
                 size: sizeArray[Math.floor(Math.random() * 3)],
             };
         }
+
+        // new로 Object를 모은 배열 생성
         makeConObject(info) {
             return new conMake(info.cloth, info.color, info.gender, info.size);
         }
+
+        // 태그 생성
         makeContent(i) {
             // contents div 만들기
             contents.innerHTML += `<div class="con">${contentsArray[i].cloth}  ${contentsArray[i].gender}, ${contentsArray[i].size}</div>`;

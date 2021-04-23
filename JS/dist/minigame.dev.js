@@ -10,6 +10,7 @@ $(document).ready(function () {
   var conMake =
   /*#__PURE__*/
   function () {
+    // 생성자 함수 makeConObject에서 new로 만들때 호출됨
     function conMake(cloth, color, gender, size) {
       _classCallCheck(this, conMake);
 
@@ -17,7 +18,8 @@ $(document).ready(function () {
       this.color = color;
       this.gender = gender;
       this.size = size;
-    }
+    } // 인자 랜덤 생성 함수
+
 
     _createClass(conMake, [{
       key: "makeFactor",
@@ -32,12 +34,14 @@ $(document).ready(function () {
           gender: genderArray[Math.floor(Math.random() * 2)],
           size: sizeArray[Math.floor(Math.random() * 3)]
         };
-      }
+      } // new로 Object를 모은 배열 생성
+
     }, {
       key: "makeConObject",
       value: function makeConObject(info) {
         return new conMake(info.cloth, info.color, info.gender, info.size);
-      }
+      } // 태그 생성
+
     }, {
       key: "makeContent",
       value: function makeContent(i) {
