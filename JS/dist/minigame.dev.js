@@ -27,7 +27,8 @@ $(document).ready(function () {
         var clothArray = ['<i class="fas fa-bread-slice"></i>', '<i class="fas fa-drumstick-bite"></i>', '<i class="fas fa-stroopwafel"></i>'];
         var colorArray = ['blue', 'yellow', 'pink'];
         var genderArray = ['male', 'female'];
-        var sizeArray = ['small size', 'medium size', 'large size'];
+        var sizeArray = ['small size', 'medium size', 'large size']; // 랜덤으로 반환시켜줌
+
         return {
           cloth: clothArray[Math.floor(Math.random() * 3)],
           color: colorArray[Math.floor(Math.random() * 3)],

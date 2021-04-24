@@ -19,6 +19,8 @@ $(document).ready(() => {
             let colorArray = ['blue', 'yellow', 'pink'];
             let genderArray = ['male', 'female'];
             let sizeArray = ['small size', 'medium size', 'large size'];
+
+            // 랜덤으로 반환시켜줌
             return {
                 cloth: clothArray[Math.floor(Math.random() * 3)],
                 color: colorArray[Math.floor(Math.random() * 3)],
