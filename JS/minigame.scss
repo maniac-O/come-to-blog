@@ -2,10 +2,14 @@ body{
     box-sizing: border-box;
     margin: 0; padding:0;
     background:grey;
+    height: 90vh;
+    display: flex;
+    align-items: center;
 }
 .wrap{
-    width:680px;
+    width:680px; height:100%;
     margin:0 auto;
+    
     
     .nav{
         
@@ -42,7 +46,8 @@ body{
     }
 
     .contents{
-
+        height: 90%;
+        overflow-y: scroll;
         .con{
             padding:8px; margin:6px;
             padding-left:40px;

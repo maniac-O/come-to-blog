@@ -11,14 +11,14 @@ $(document).ready(() => {
 
         // 인자 랜덤 생성 함수
         makeFactor() {
-            let clothArray = [
+            const clothArray = [
                 '<i class="fas fa-bread-slice"></i>',
                 '<i class="fas fa-drumstick-bite"></i>',
                 '<i class="fas fa-stroopwafel"></i>',
             ];
-            let colorArray = ['blue', 'yellow', 'pink'];
-            let genderArray = ['male', 'female'];
-            let sizeArray = ['small size', 'medium size', 'large size'];
+            const colorArray = ['blue', 'yellow', 'pink'];
+            const genderArray = ['male', 'female'];
+            const sizeArray = ['small size', 'medium size', 'large size'];
 
             // 랜덤으로 반환시켜줌
             return {
@@ -40,7 +40,7 @@ $(document).ready(() => {
             contents.innerHTML += `<div class="con">${contentsArray[i].cloth}  ${contentsArray[i].gender}, ${contentsArray[i].size}</div>`;
 
             // 금방 만든 contents div icon 받기
-            let current = document.querySelector(
+            const current = document.querySelector(
                 `.contents div:nth-of-type(${i + 1}) i`
             );
 

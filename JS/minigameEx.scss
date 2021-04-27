@@ -1,0 +1,23 @@
+div{
+    width: 100vh; height:20vh;
+    background:grey;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+button{
+    border:2px solid grey;
+    padding: 20px;
+    font-size:2rem;
+    margin:20px;
+}
+
+[data-index='1']{
+    background:skyblue;
+}
+[data-index='2']{
+    background:pink;
+}
+[data-index='3']{
+    background:lightgreen;
+}

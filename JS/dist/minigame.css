@@ -3,10 +3,14 @@ body {
   margin: 0;
   padding: 0;
   background: grey;
+  height: 90vh;
+  display: flex;
+  align-items: center;
 }
 
 .wrap {
   width: 680px;
+  height: 100%;
   margin: 0 auto;
 }
 .wrap .nav ul {
@@ -38,6 +42,10 @@ body {
 }
 .wrap .nav #button6 {
   background: lightcoral;
+}
+.wrap .contents {
+  height: 90%;
+  overflow-y: scroll;
 }
 .wrap .contents .con {
   padding: 8px;
