@@ -1,0 +1,275 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  height: 5000px;
+  background: #49b293;
+  -webkit-overflow-scrolling: touch;
+}
+
+.world {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  perspective: 1000px;
+}
+
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+
+.house {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+  transform: translateZ(-500vw);
+}
+
+.house__wall {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.house__contents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #333;
+  font-size: 5em;
+}
+
+.house__wall--left {
+  width: 1000vw;
+  transform: rotateY(90deg) translateZ(-500vw);
+  background: #f8f8f8;
+}
+
+.house__wall--right {
+  width: 1000vw;
+  transform: rotateY(90deg) translateZ(-400vw);
+  background: #f8f8f8;
+  z-index: 10;
+}
+
+.house__wall--front-a {
+  transform: translateZ(450vw);
+}
+
+.house__wall--front-b {
+  transform: translateZ(250vw);
+}
+
+.house__wall--front-c {
+  transform: translateZ(-100vw);
+}
+
+.house__wall--front-d {
+  transform: translateZ(-450vw);
+}
+
+.progress {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 7px;
+  background: #555;
+}
+
+.progress__bar {
+  width: 0%;
+  height: 100%;
+  background: #00afff;
+}
+
+.char {
+  position: fixed;
+  left: 12%;
+  bottom: 5%;
+  width: 10vw;
+  height: 17.8vw;
+  transform-style: preserve-3d;
+}
+
+[data-direction=backward] {
+  transition: all 0s;
+  animation: ani-head-reverse 0.6s infinite alternate cubic-bezier(0.46, 0.18, 0.66, 0.93);
+}
+
+.char__head[data-direction=backward] .face-front, .char__torso[data-direction=backward] .face-front {
+  background-image: none;
+}
+.char__head[data-direction=backward] .face-back, .char__torso[data-direction=backward] .face-back {
+  transform: rotateY(0deg);
+}
+
+.char__con {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: 1s;
+}
+
+.char__face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  backface-visibility: hidden;
+}
+.char__face.face-back {
+  transform: rotateY(180deg);
+}
+
+.char__head {
+  z-index: 60;
+  top: 0;
+  left: calc(42 / 856 * 100%);
+  width: calc(770 / 856 * 100%);
+  height: calc(648 / 1334 * 100%);
+}
+
+.char__head_ani {
+  transform-origin: center bottom;
+  animation: ani-head 0.6s infinite alternate cubic-bezier(0.46, 0.18, 0.66, 0.93);
+}
+
+.face-front {
+  background-image: url("../pic/ilbuni_head.png");
+}
+
+.face-back {
+  background-image: url("../pic/ilbuni_head_back.png");
+}
+
+.char__torso {
+  z-index: 50;
+  left: calc(200 / 856 * 100%);
+  top: calc(600 / 1334 * 100%);
+  width: calc(428 / 856 * 100%);
+  height: calc(385 / 1334 * 100%);
+  transform-origin: center center;
+}
+.char__torso-face.face-front {
+  background-image: url("../pic/ilbuni_torso.png");
+}
+.char__torso-face.face-back {
+  background-image: url("../pic/ilbuni_torso_back.png");
+}
+
+.char__armRight {
+  top: calc(550 / 1334 * 100%);
+  left: calc(130 / 856 * 100%);
+  width: calc(244 / 856 * 100%);
+  height: calc(307 / 1334 * 100%);
+  transform-origin: right top;
+}
+.char__armRight .face-front {
+  background-image: url("../pic/ilbuni_arm_right.png");
+}
+.char__armRight .face-back {
+  background-image: url("../pic/ilbuni_arm_right.png");
+}
+
+.char__armLeft {
+  top: calc(550 / 1334 * 100%);
+  left: calc(570 / 856 * 100%);
+  width: calc(244 / 856 * 100%);
+  height: calc(307 / 1334 * 100%);
+  transform-origin: left top;
+}
+.char__armLeft .face-front {
+  background-image: url("../pic/ilbuni_arm_left.png");
+}
+.char__armLeft .face-back {
+  background-image: url("../pic/ilbuni_arm_left.png");
+}
+
+.char__legLeft {
+  top: calc(910 / 1334 * 100%);
+  left: calc(208 / 856 * 100%);
+  width: calc(205 / 856 * 100%);
+  height: calc(310 / 1334 * 100%);
+  transform-origin: center top;
+}
+.char__legLeft .face-front {
+  background-image: url("../pic/ilbuni_leg_left.png");
+}
+.char__legLeft .face-back {
+  background-image: url("../pic/ilbuni_leg_left.png");
+}
+
+.char__legRight {
+  top: calc(910 / 1334 * 100%);
+  left: calc(413 / 856 * 100%);
+  width: calc(205 / 856 * 100%);
+  height: calc(300 / 1334 * 100%);
+  transform-origin: center top;
+}
+.char__legRight .face-front {
+  background-image: url("../pic/ilbuni_leg_right.png");
+}
+.char__legRight .face-back {
+  background-image: url("../pic/ilbuni_leg_right.png");
+}
+
+.char.running .char__armRight {
+  animation: ani-running-arm 0.2s alternate infinite linear;
+}
+.char.running .char__armLeft {
+  animation: ani-running-arm 0.2s alternate-reverse infinite linear;
+}
+.char.running .char__legRight {
+  animation: ani-running-leg 0.2s alternate infinite linear;
+}
+.char.running .char__legLeft {
+  animation: ani-running-leg 0.2s alternate-reverse infinite linear;
+}
+
+@keyframes ani-head {
+  100% {
+    transform: rotateX(-20deg);
+  }
+}
+@keyframes ani-head-reverse {
+  100% {
+    transform: rotateX(20deg);
+  }
+}
+@keyframes ani-running-leg {
+  0% {
+    transform: rotateX(-30deg);
+  }
+  100% {
+    transform: rotateX(30deg);
+  }
+}
+@keyframes ani-running-arm {
+  0% {
+    transform: rotateX(30deg);
+  }
+  100% {
+    transform: rotateX(-30deg);
+  }
+}
