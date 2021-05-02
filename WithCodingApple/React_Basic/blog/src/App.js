@@ -13,7 +13,7 @@ function App() {
     });
     let [따봉, 따봉변경] = useState(0);
 
-    function 함수() {
+    function addDDabong() {
         따봉변경((따봉 += 1));
     }
     function pizza() {
@@ -30,7 +30,8 @@ function App() {
             <button onClick={pizza}>버튼</button>
             <div className="list">
                 <h3>
-                    {글제목['title1']} <span onClick={함수}>👍</span> {따봉}
+                    {글제목['title1']} <span onClick={addDDabong}>👍</span>{' '}
+                    {따봉}
                 </h3>
                 <p>2월 17일 발행</p>
                 <hr />
@@ -45,6 +46,18 @@ function App() {
                 <p>4월 21일 발행</p>
                 <hr />
             </div>
+
+            <Model />
+        </div>
+    );
+}
+
+function Model() {
+    return (
+        <div>
+            <div>a</div>
+            <div>b</div>
+            <div>c</div>
         </div>
     );
 }
