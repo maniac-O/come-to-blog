@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div style="overflow: hidden;">
+        <div class="container">
+            <div class="wrap">
+                <div class="inner active">
+                    <img src="../../pic/pic1.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic2.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic3.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic4.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic5.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic6.png" alt="">
+                </div>
+                <div class="inner">
+                    <img src="../../pic/pic1.png" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="wrapButton">
+        <button class="oneStep previous">Previous</button>
+        <button class="oneStep next">Next</button>
+    </div>
+    <script>
+        class Buttons {
+            // 사진 개수 받아서 리턴해주기
+            cntIt() {
+                let cnt = document.querySelectorAll('.inner').length;
+                return cnt;
+            }
+
+            // 만들고싶은 버튼 개수 받아서 생성시켜주기
+            makeButton(cnt) {
+                let body = document.querySelector('.wrapButton');
+                let inner = document.querySelectorAll('.inner');
+
+                // 사진에 index라는 data값 생성
+                inner[cnt].dataset.index = cnt + 1;
+
+                // 실제 버튼 생성
+                body.innerHTML += `<button class="button${cnt+1}">${cnt+1}</button>`;
+            }
+
+            // 버튼 클릭 시 동작
+            motion() {
+                let wrapButton = document.querySelector('.wrapButton');
+
+                // 위임
+                wrapButton.addEventListener('click', (e) => {
+                    for (let i = 0; i < cnt; i++) {
+                        // 클릭한 버튼 확인
+                        if (e.target.className == `button${i+1}`) {
+                            // active 클래스 위치 이동
+                            let success = switchActive(i);
+
+                            // 성공 시 이동
+                            if (success)
+                                wrap.style.transform = `translate(${-1*(i * 30)}vw)`;
+                        }
+
+                    }
+                });
+            }
+        }
+
+        class Step {
+            // 지금 active 위치 찾기
+            getCurrentLocation() {
+                return document.querySelector('.active').dataset.index;
+            };
+
+            // 왼쪽으로 한칸 메소드
+            previous() {
+                let location = this.getCurrentLocation();
+                let success = switchActive(location - 2);
+                if (success)
+                    wrap.style.transform = `translate(${-(location - 2) * 30}vw)`;
+            }
+
+            // 오른쪽으로 한칸 메소드
+            next() {
+                let location = this.getCurrentLocation();
+                let success = switchActive(location);
+                if (success)
+                    wrap.style.transform = `translate(${-(location) * 30}vw)`;
+            }
+        }
+
+
+        // 가고싶은 곳을 인자로 받아 active를 이동시켜주는 함수
+        function switchActive(togo) {
+            // 범위를 벗어났다면 0 리턴
+            if (togo < 0 || togo >= cnt) {
+                console.log('Out of range');
+                return 0;
+            }
+
+            // 현재 위치의 active 지워주고
+            // 가고싶은 위치를 인자로 주기
+            document.querySelector('.active').classList.toggle('active');
+            document.querySelectorAll(`.inner`)[togo].classList.toggle('active');
+            return 1;
+        }
+
+
+        let btn = new Buttons();
+        let cnt = btn.cntIt();
+        let wrap = document.querySelector('.wrap');
+
+        for (let i = 0; i < cnt; i++) {
+            btn.makeButton(i);
+        }
+        wrap.style.width = `${(cnt + 1) * 30}vw`;
+        btn.motion();
+
+        let step = new Step();
+
+        let previous = document.querySelectorAll('.oneStep')[0];
+        let next = document.querySelectorAll('.oneStep')[1];
+
+
+        previous.addEventListener('click', () => {
+            step.previous();
+        });
+        next.addEventListener('click', () => {
+            step.next();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+.container{
+    width:30vw;
+    overflow: hidden;
+}
+.wrap{
+    width:90vw;
+    transition: transform 0.3s;
+}
+.inner{
+    width:30vw;
+    float:left;
+}
+.inner img{
+    width:100%;
+}
