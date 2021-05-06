@@ -1,3 +1,5 @@
+// How to start then : npm start
+
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
