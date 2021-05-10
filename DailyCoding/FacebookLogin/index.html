@@ -5,23 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="vY58JgzugCt3BfXbhuuO13LokHF365WfTJjXcwRQmbY" />
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
     <title>Document</title>
 </head>
 
 <body>
     <script>
+        function checkLoginState() {
+            console.log('Login Changed');
+        }
+
         function statusChangeCallback(response) { // Called with the results from FB.getLoginStatus().
             if (response.status === 'connected') { // Logged into your webpage and Facebook.
                 document.querySelector('#loginout').value = 'Logout';
-                document.getElementById('status').innerHTML = 'Welcome!';
                 console.log('login=>', response.status);
-
             } else { // Not logged into your webpage or we are unable to tell.
                 document.getElementById('status').innerHTML = 'Please log ' +
                     'into this webpage.';
                 document.querySelector('#loginout').value = 'Login';
                 console.log('logout=>', response.status);
-
             }
         }
 
@@ -38,9 +42,18 @@
         };
     </script>
 
+    <span id="name"></span>
+
+    <!-- The JS SDK Login Button -->
+
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+    </fb:login-button>
+
     <div id="status">
     </div>
-
+    <div>
+        Facebook Login
+    </div>
     <input type="button" id="loginout" value="Login" onclick="
         if(this.value === 'Login'){
             FB.login((res)=>{
@@ -52,9 +65,9 @@
             statusChangeCallback(res);
             });
         }">
-
     <!-- Load the JS SDK asynchronously -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 </body>
 
 </html>

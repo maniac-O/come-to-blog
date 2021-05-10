@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="vY58JgzugCt3BfXbhuuO13LokHF365WfTJjXcwRQmbY" />
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function checkLoginStatus() {
+            let loginBtn = document.querySelector('#loginBtn');
+            let nameTxt = document.querySelector('#name');
+            if (gAuth.isSignedIn.get()) {
+                console.log('logined');
+                loginBtn.value = 'Logout';
+                let profile = gAuth.currentUser.get().getBasicProfile();
+                nameTxt.innerHTML = `Welcome <strong>${profile.getName()}</strong>`;
+            } else {
+                console.log('logouted');
+                loginBtn.value = 'Login';
+                nameTxt.innerHTML = "";
+            }
+        }
+
+        function init() {
+            console.log('a');
+            gapi.load('auth2', function () {
+                /* Ready. Make a call to gapi.auth2.init or some other API */
+                window.gAuth = gapi.auth2.init({
+                    client_id: '54551429162-9f8bbt738nbrh21bu9odtmlfnstdrda8.apps.googleusercontent.com'
+                });
+                gAuth.then(function () {
+                    console.log('googleAuth success');
+                    checkLoginStatus()
+                }, function () {
+                    console.log('googleAuth failed');
+                });
+                console.log('b');
+            });
+        }
+
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log(profile);
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
+
+    <span id="name"></span>
+
+    <div>
+        Google Login
+    </div>
+    <input type="button" id="loginBtn" value="checking..." onclick="
+        if(this.value ==='Login'){
+        gAuth.signIn({
+                scope:'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/yt-analytics.readonly'      
+        }).then(()=>{
+            console.log('gAuth.signIn()');
+            checkLoginStatus();                                              
+        });                                                    
+        }else{
+            gAuth.signOut().then(()=>{
+                console.log('gAuth.signOut()');
+                checkLoginStatus();
+            });                                                                         
+        }
+    ">
+
+</body>
+
+</html>
