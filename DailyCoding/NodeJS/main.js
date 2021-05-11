@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 const qs = require('querystring');
+const path = require('path');
+const sanitizeHtml = require('sanitize-html');
 
 const app = http.createServer(function (request, response) {
     let _url = request.url;
@@ -18,7 +20,7 @@ const app = http.createServer(function (request, response) {
         </head>
         <body>
         <h1><a href="/">WEB</a></h1>
-            ${list}
+            ${list}  
             ${control}
             ${body}
         </body>
@@ -59,7 +61,10 @@ const app = http.createServer(function (request, response) {
                 response.end(template);
             } else if (title) {
                 fs.readFile(`./data/${title}`, 'utf-8', (err, data) => {
-                    description = data;
+                    title = sanitizeHtml(title);
+
+                    description = sanitizeHtml(data);
+
                     rendering(
                         title,
                         list,
@@ -180,6 +185,6 @@ const app = http.createServer(function (request, response) {
 });
 app.listen(8080);
 
-// cd E:\web\come-to-blog\DailyCoding\NodeJSS
+// cd E:\web\come-to-blog\DailyCoding\NodeJS
 // nodemon main.js
 // pm2 start .\main.js

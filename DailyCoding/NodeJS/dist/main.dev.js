@@ -6,6 +6,10 @@ var fs = require('fs');
 
 var qs = require('querystring');
 
+var path = require('path');
+
+var sanitizeHtml = require('sanitize-html');
+
 var app = http.createServer(function (request, response) {
   var _url = request.url;
   var queryData = new URL('http://127.0.0.1:8080' + _url);
@@ -14,7 +18,7 @@ var app = http.createServer(function (request, response) {
   var template = '';
 
   function rendering(title, list, body, control) {
-    template = "<!doctype html>\n        <html>\n        <head>\n            <title>Node.JS - ".concat(title, "</title>\n            <meta charset=\"utf-8\">\n        </head>\n        <body>\n        <h1><a href=\"/\">WEB</a></h1>\n            ").concat(list, "\n            ").concat(control, "\n            ").concat(body, "\n        </body>\n        </html>\n        ");
+    template = "<!doctype html>\n        <html>\n        <head>\n            <title>Node.JS - ".concat(title, "</title>\n            <meta charset=\"utf-8\">\n        </head>\n        <body>\n        <h1><a href=\"/\">WEB</a></h1>\n            ").concat(list, "  \n            ").concat(control, "\n            ").concat(body, "\n        </body>\n        </html>\n        ");
   }
 
   function rendList(filelist) {
@@ -44,7 +48,8 @@ var app = http.createServer(function (request, response) {
         response.end(template);
       } else if (title) {
         fs.readFile("./data/".concat(title), 'utf-8', function (err, data) {
-          description = data;
+          title = sanitizeHtml(title);
+          description = sanitizeHtml(data);
           rendering(title, list, "<h2>".concat(title, "</h2>").concat(description), "<a href=\"/create\">create</a> \n                        <a href=\"/update?id=".concat(title, "\">update</a>\n                        <form action=\"/delete_process\" method=\"post\" onsubmit=\"checkToSubmit\">\n                            <input type=\"hidden\" name=\"id\" value=\"").concat(title, "\">\n                            <input type=\"submit\" value=\"delete\">\n                        </form>"));
           response.writeHead(200);
           response.end(template);
@@ -133,6 +138,6 @@ var app = http.createServer(function (request, response) {
     response.end('Not found');
   }
 });
-app.listen(8080); // cd E:\web\come-to-blog\DailyCoding\NodeJSS
+app.listen(8080); // cd E:\web\come-to-blog\DailyCoding\NodeJS
 // nodemon main.js
 // pm2 start .\main.js

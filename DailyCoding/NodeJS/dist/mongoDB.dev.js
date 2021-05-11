@@ -1,0 +1,6 @@
+"use strict";
+
+module.exports = {
+  id: 'egoing',
+  password: '11111'
+};
