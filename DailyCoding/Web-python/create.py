@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import html_sanitizer
 import view
 import os
 import cgi
@@ -8,25 +9,18 @@ print("Hello World")
 # 실패 로그 보는 법
 # sudo tail /var/log/apache2/error.log
 
+sanitizer = html_sanitizer.Sanitizer()
 
 form = cgi.FieldStorage()
 
 if 'id' in form:
     pageId = form["id"].value
     description = open('./data/'+pageId, 'r', encoding="utf-8").read()
-    update_link = '<a href="update.py?id={}">update</a>'.format(pageId)
-    delete_action = '''
-        <form action="process_delete.py" method="post">
-            <input type="hidden" name="pageId" value="{}">
-            <input type="submit" value="delete">
-        </form>
-    '''.format(pageId)
+    description = sanitizer.sanitize(description)
 
 else:
     pageId = 'Welcome'
     description = 'Hello, web'
-    update_link = ''
-    delete_action = ''
 
 
 print('''<!doctype html>
@@ -41,10 +35,11 @@ print('''<!doctype html>
     {listStr}
   </ol>
   <a href="create.py">create</a>
-  {update_link}
-  {delete_action}
-  <h2>{title}</h2>
-  <p>{desc}</p>
+  <form method="POST" action="./process_create.py">
+    <p><input type="text" name="title" placeholder="title"></p>
+    <p><textarea rows="10" name="description" placeholder="description"></textarea></p>
+    <p><input type="submit"></p>
+  </form>
 </body>
 </html>
-'''.format(title=pageId, desc=description, listStr=view.getList(), update_link=update_link, delete_action=delete_action))
+'''.format(listStr=view.getList()))
