@@ -1,17 +1,13 @@
 <?php
 $conn = mysqli_connect('localhost','root','root','opentutorials');
-print_r($_POST);
+
+settype($_POST['id'], 'integer');
 $filtered = array(
-    'name'=> mysqli_real_escape_string($conn, $_POST['name']),
-    'profile' => mysqli_real_escape_string($conn, $_POST['profile'])
+        'id'=> mysqli_real_escape_string($conn, $_POST['id']),
 );
 
-$sql = "   
-    INSERT INTO author (name,profile)
-        VALUES(
-            '{$filtered['name']}',
-            '{$filtered['profile']}'
-        )";
+$sql = "DELETE FROM author
+        WHERE id = {$filtered['id']}";
 
 $result = mysqli_query($conn,$sql);
 if($result ===false){
