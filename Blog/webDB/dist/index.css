@@ -5,6 +5,7 @@ html, body {
 
 ol {
   margin: 0;
+  background: darkred;
 }
 
 li {
