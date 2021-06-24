@@ -54,11 +54,16 @@
         </div>
     </nav>
     <div class="container mt-3">
-        <input type="text" class="form-control mt-2" id="title" placeholder="title">
-        <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
-        <input type="text" class="form-control mt-2" id="price" placeholder="price">
-        <input class="form-control mt-2" type="file" id="image">
-        <button class="btn btn-danger mt-3" id="send">올리기</button>
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="name" id="name-new">
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control" placeholder="email" id="email-new">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" placeholder="pw" id="pw-new">
+        </div>
+        <button type="submit" class="btn btn-primary" id="register">가입하기</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
@@ -91,46 +96,15 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
 
+        document.querySelector('#register').onclick = function () {
+            let email = document.querySelector('#email-new').value;
+            let password = document.querySelector('#pw-new').value;
 
-        document.querySelector('#send').onclick = function () {
-            let file = document.querySelector('#image').files[0];
-
-            let storageRef = storage.ref();
-            let loadURL = storageRef.child('image/' + file.name);
-            let uploading = loadURL.put();
-
-            const gotoDB = {
-                제목: document.querySelector('#title').value,
-                내용: document.querySelector('#content').value,
-                가격: document.querySelector('#price').value,
-                날짜: new Date(),
-            };
-
-            uploading.on('state_changed',
-                // 변화시 동작하는 함수 
-                // 업로드 퍼센트같은 기능 넣을려면 여기 넣으면 됨
-                null,
-                //에러시 동작하는 함수
-                (error) => {
-                    console.error('실패사유는', error);
-                },
-                // 성공시 동작하는 함수
-                () => {
-                    // 업로드 이미지의 url을 가져오는 기능
-                    uploading.snapshot.ref.getDownloadURL().then((url) => {
-                        console.log('업로드된 경로는', url);
-                        gotoDB.이미지 = url;
-                    });
-                }
-            );
-            console.log(gotoDB);
-            db.collection('product').add(gotoDB).then((result) => {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then((result) => {
                 console.log(result);
-                location.href = "/index.html";
-            }).catch((err) => {
-                console.log(err);
+                console.log(result.user);
             });
-        };
+        }
     </script>
 
 
