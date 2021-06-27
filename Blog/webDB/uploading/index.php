@@ -1,3 +1,41 @@
+<?php
+$conn = mysqli_connect('localhost','normalUser','normalUser!!','opentutorials');
+
+$sql = "SELECT * FROM topic";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $list = '';
+    while($row = mysqli_fetch_array($result)){
+        $list = $list."<li><a href=\"index2.php?id={$row['id']}\">{$row['title']}</a></li>";
+    }
+/*
+$article = array('title'=>'Welcome',
+    'description'=>'Hello, web');
+
+$update_link = '';
+$delete_link = '';
+$author = '';
+if(isset($_GET['id'])){
+    $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
+    $sql = "SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id WHERE topic.id={$filtered_id}";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $article = array('title'=>$row['title'],
+        'description'=>htmlspecialchars($row['description']),
+        'name'=>htmlspecialchars($row['name']));
+
+    $update_link = "<a href=\"update2.php?id={$_GET['id']}\">update</a>";
+    $delete_link = "
+        <form action='delete2_process.php' method='post'>
+            <input type='hidden' name='id' value='{$_GET['id']}'>
+            <input type='submit' value='delete'>
+        </form>
+    ";
+    $author = "<p>by {$article['name']}</p>";
+}
+*/
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +56,10 @@
 </head>
 
 <body>
+    <ol>
+        a
+        <?= $list ?>
+    </ol>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -51,78 +93,131 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
+                    <li>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
+                <div class="btn-group">
+                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </button>
+                    <div class="dropdown-menu">
+                        <form class="px-4 py-3">
+                            <div class="mb-3">
+                                <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleDropdownFormEmail1"
+                                    placeholder="email@example.com">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleDropdownFormPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                    placeholder="Password">
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                                    <label class="form-check-label" for="dropdownCheck">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">New around here? Sign up</a>
+                        <a class="dropdown-item" href="#">Forgot password?</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
     <div class="album">
-        <div id="list-example" class="list-group">
+        <div class="banner col-12 row">
+            <img src="data/banner 01.jpg" class="rounded" alt="...">
+            <hr>
+            <span class="banner-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                nihil voluptate
+                repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                veritatis in velit recusandae nemo aspernatur!</span>
+            <hr>
+        </div>
+        <div class="container col-10">
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+            <div class="contents">
+                <img src="data/sample.png" class="rounded" alt="...">
+                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
+                    nihil voluptate
+                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
+                    veritatis in velit recusandae nemo aspernatur!</span>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary">View</button>
+                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+            </div>
+        </div>
+        <div id="list-example" class="list-group col-2">
             <a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
             <a class="list-group-item list-group-item-action" href="#list-item-2">Item 2</a>
             <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
             <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-        </div>
-        <div class="container">
-            <div class="contents">
-                <img src="https://via.placeholder.com/300" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="https://via.placeholder.com/300" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="https://via.placeholder.com/300" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="https://via.placeholder.com/300" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="https://via.placeholder.com/300" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-
         </div>
     </div>
 </body>

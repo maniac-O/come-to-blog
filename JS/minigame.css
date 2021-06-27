@@ -1,0 +1,78 @@
+body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: grey;
+  height: 90vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrap {
+  width: 680px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.wrap .nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 0;
+}
+
+.wrap .nav ul li {
+  background: grey;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.wrap .nav .top-button {
+  font-size: 1.5rem;
+  border: 0;
+  background: 0;
+}
+
+.wrap .nav .top-button i {
+  color: lightblue;
+}
+
+.wrap .nav #button4 {
+  background: lightblue;
+}
+
+.wrap .nav #button5 {
+  background: #ffff6e;
+}
+
+.wrap .nav #button6 {
+  background: lightcoral;
+}
+
+.wrap .contents {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.wrap .contents .con {
+  padding: 8px;
+  margin: 6px;
+  padding-left: 40px;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  background: beige;
+}
+/*# sourceMappingURL=minigame.css.map */

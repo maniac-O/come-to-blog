@@ -1,0 +1,266 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'malgun gothic', sans-serif;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background: #000;
+}
+
+header .header-left {
+  font-size: 1rem;
+  padding: 14px 14px;
+  color: #fff;
+}
+
+header .header-left i {
+  color: red;
+}
+
+header .header-right {
+  font-size: 1rem;
+  padding: 14px 14px;
+  color: #fff;
+}
+
+header .header-right i {
+  margin-left: 10px;
+}
+
+section {
+  background: #000;
+  text-align: center;
+}
+
+information {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+information .info-video {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 14px 14px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 50%;
+          flex: 1 1 50%;
+}
+
+information .info-video .info-hashtag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #3EA6FF;
+}
+
+information .info-video .info-hashtag span {
+  margin-right: 10px;
+}
+
+information .info-video .info-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 14px;
+}
+
+information .info-video .info-title .title-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+information .info-video .info-title .title-button i {
+  height: 100%;
+  color: #AAAAAA;
+}
+
+information .info-video .info-views {
+  font-size: 0.7rem;
+}
+
+information .info-video .info-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-top: 14px;
+}
+
+information .info-video .info-buttons .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #AAAAAA;
+}
+
+information .info-video .info-buttons .buttons i {
+  font-size: 1rem;
+}
+
+information .info-video .info-buttons .buttons span {
+  font-size: 0.7rem;
+}
+
+information .info-video .info-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 14px;
+  padding: 5px 0;
+  border-top: 1px solid #AAAAAA;
+  border-bottom: 1px solid #AAAAAA;
+}
+
+information .info-video .info-profile .profile-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+information .info-video .info-profile .profile-left .profile-left-pic img {
+  width: 40px;
+  border-radius: 100%;
+}
+
+information .info-video .info-profile .profile-left .profile-left-ID {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-left: 14px;
+}
+
+information .info-video .info-profile .profile-left .profile-left-ID span:nth-of-type(1) {
+  font-size: 1rem;
+}
+
+information .info-video .info-profile .profile-left .profile-left-ID span:nth-of-type(2) {
+  font-size: 0.7rem;
+}
+
+information .recommand-video {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 14px 14px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 50%;
+          flex: 1 1 50%;
+}
+
+information .recommand-video .upNext {
+  color: #AAAAAA;
+}
+
+information .recommand-video .video-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 10px;
+}
+
+information .recommand-video .video-contents .video-contents-img {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 39%;
+          flex: 1 1 39%;
+  padding-right: 10px;
+}
+
+information .recommand-video .video-contents .video-contents-img img {
+  width: 100%;
+}
+
+information .recommand-video .video-contents .video-contents-text {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 60%;
+          flex: 1 1 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-right: 10px;
+}
+
+information .recommand-video .video-contents .video-contents-text span:nth-of-type(2) {
+  color: #AAAAAA;
+  font-size: 0.7rem;
+}
+
+information .recommand-video .video-contents .video-contents-text span:nth-of-type(3) {
+  color: #AAAAAA;
+  font-size: 0.7rem;
+}
+
+information .recommand-video .video-contents .video-contents-button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 1%;
+          flex: 1 1 1%;
+}
+
+@media screen and (max-width: 768px) {
+  information {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  iframe {
+    width: 100%;
+  }
+}
+/*# sourceMappingURL=YoutubeResponsive02.css.map */
