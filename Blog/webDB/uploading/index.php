@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost','normalUser','normalUser!!','opentutorials');
+$conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 
 $sql = "SELECT * FROM topic";
     $result = mysqli_query($conn, $sql);
