@@ -5,9 +5,6 @@ $sql = "SELECT * FROM topic";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $list = '';
-    while($row = mysqli_fetch_array($result)){
-        $list = $list."<li><a href=\"index2.php?id={$row['id']}\">{$row['title']}</a></li>";
-    }
 /*
 $article = array('title'=>'Welcome',
     'description'=>'Hello, web');
