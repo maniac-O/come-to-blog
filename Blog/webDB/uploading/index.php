@@ -1,10 +1,38 @@
 <?php
+
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
+
+$sql = "SELECT * FROM written";
+$result = mysqli_query($conn, $sql);
+$list = '';
+
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+        print_r($row);
+        $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['wid']}</a></li>";
+    }
+}else{
+    echo "테이블에 데이터가 없습니다.";
+}
+/*
+while($row = mysqli_fetch_array($result)){
+    
+    print_r($row);
+    $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['email']}</a></li>";
+}
+
+echo $list;
+/*
+$conn = mysqli_connect('localhost','root','root','opentutorials');
 
 $sql = "SELECT * FROM topic";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $list = '';
+    while($row = mysqli_fetch_array($result)){
+        print_r($row);
+        $list = $list."<li><a href=\"index2.php?id={$row['id']}\">{$row['title']}</a></li>";
+    }
 /*
 $article = array('title'=>'Welcome',
     'description'=>'Hello, web');
@@ -54,8 +82,7 @@ if(isset($_GET['id'])){
 
 <body>
     <ol>
-        a
-        <?= $list ?>
+    <?= $list ?>
     </ol>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
@@ -103,15 +130,16 @@ if(isset($_GET['id'])){
                         Login
                     </button>
                     <div class="dropdown-menu">
-                        <form class="px-4 py-3">
+                    <!-- 로그인 버튼 -->
+                        <form action="login.php" method="post" class="px-4 py-3">
                             <div class="mb-3">
                                 <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleDropdownFormEmail1"
+                                <input name="email" type="email" class="form-control" id="exampleDropdownFormEmail1"
                                     placeholder="email@example.com">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleDropdownFormPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                <input name="passwd" type="password" class="form-control" id="exampleDropdownFormPassword1"
                                     placeholder="Password">
                             </div>
                             <div class="mb-3">
