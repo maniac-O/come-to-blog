@@ -1,19 +1,38 @@
 <?php
+session_start();
+echo $_SESSION['email'];
+if(!isset($_SESSION['email'])){
+    echo "로그인 되지 않아있다.";
+    $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Login
+                    </button>';
+    $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 
-$conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
-
-$sql = "SELECT * FROM written";
-$result = mysqli_query($conn, $sql);
-$list = '';
-
-if (mysqli_num_rows($result) > 0) {
-    while($row = mysqli_fetch_assoc($result)) {
-        print_r($row);
-        $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['wid']}</a></li>";
+    $sql = "SELECT * FROM written";
+    $result = mysqli_query($conn, $sql);
+    $list = '';
+    
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['wid']}</a></li>";
+        }
+    }else{
+        echo "테이블에 데이터가 없습니다.";
     }
-}else{
-    echo "테이블에 데이터가 없습니다.";
+}else{/*
+    <button class="btn btn-outline-light dropdown-toggle" id="logoutButton" type="submit">
+        Logout
+    </button>*/
+    $loginButton = '
+                <form action="logout.php" method="post" class="" id="logoutButton">
+                    <button type="submit">
+                        Logout
+                    </button>
+                </form>';
+    echo "로그인 중입니다.";
 }
+
 /*
 while($row = mysqli_fetch_array($result)){
     
@@ -69,7 +88,7 @@ if(isset($_GET['id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="scss/dist/custom.css">
+    <link rel="stylesheet" type="text/css" href="scss/dist/custom.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -125,10 +144,7 @@ if(isset($_GET['id'])){
                     </li>
                 </ul>
                 <div class="btn-group">
-                    <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Login
-                    </button>
+                    <?=$loginButton?>
                     <div class="dropdown-menu">
                     <!-- 로그인 버튼 -->
                         <form action="login.php" method="post" class="px-4 py-3">
