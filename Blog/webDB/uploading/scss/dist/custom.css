@@ -10787,9 +10787,9 @@ html, body {
 }
 
 .banner-body {
-  height: 20%;
+  height: 75px;
   font-size: 1.5rem;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   overflow: hidden;
 }
 
@@ -10822,4 +10822,19 @@ html, body {
 .btn-group {
   padding: 7px;
   width: 20%;
+}
+
+.logoutButton {
+  margin-left: 40%;
+  margin-bottom: 0;
+  position: relative;
+  flex: 1 1 auto;
+}
+.logoutButton > button {
+  width: 100%;
+}
+
+.signUp {
+  margin: 10vh auto;
+  width: 560px;
 }

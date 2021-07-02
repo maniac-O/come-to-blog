@@ -1,36 +1,35 @@
 <?php
 session_start();
-echo $_SESSION['email'];
+$conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 if(!isset($_SESSION['email'])){
     echo "로그인 되지 않아있다.";
     $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Login
                     </button>';
-    $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 
-    $sql = "SELECT * FROM written";
-    $result = mysqli_query($conn, $sql);
-    $list = '';
     
+    /*
+    $list = '';
     if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
             $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['wid']}</a></li>";
         }
     }else{
         echo "테이블에 데이터가 없습니다.";
-    }
-}else{/*
-    <button class="btn btn-outline-light dropdown-toggle" id="logoutButton" type="submit">
-        Logout
-    </button>*/
+    }*/
+}else{
     $loginButton = '
-                <form action="logout.php" method="post" class="" id="logoutButton">
-                    <button type="submit">
+                <form action="logout.php" method="post" class="logoutButton">
+                    <button class="btn btn-outline-light" type="submit">
                         Logout
                     </button>
                 </form>';
     echo "로그인 중입니다.";
+    $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    print_r($row);
 }
 
 /*
@@ -169,7 +168,7 @@ if(isset($_GET['id'])){
                             <button type="submit" class="btn btn-primary">Sign in</button>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">New around here? Sign up</a>
+                        <a class="dropdown-item" href="signUp.php">New around here? Sign up</a>
                         <a class="dropdown-item" href="#">Forgot password?</a>
                     </div>
                 </div>
