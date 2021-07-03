@@ -11611,4 +11611,25 @@ html, body {
   margin: 10vh auto;
   width: 560px;
 }
+
+.re_passwd {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#not-same-pw {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+#check-nickname {
+  margin-top: 0.4rem;
+  background-color: #198754;
+  border-color: #198754;
+  color: #fff;
+}
 /*# sourceMappingURL=custom.css.map */

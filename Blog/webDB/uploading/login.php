@@ -1,6 +1,7 @@
 <?php
 $email = $_POST['email'];
 $passwd = $_POST['passwd'];
+
 if(empty($_POST['email']) || empty($_POST['passwd'])){
     echo "<script> alert('정확한 정보를 입력하세요'); 
     document.location.href='index.php'; </script>";

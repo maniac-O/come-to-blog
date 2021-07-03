@@ -33,7 +33,12 @@
                 <div id="emailHelp" class="form-text">Passwords must be at least 6 characters.</div>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Re-enter password</label>
+                <div class="re_passwd">
+                    <label for="exampleInputPassword1" class="form-label">Re-enter password</label>
+                    <span id="not-same-pw">
+                        비밀번호가 일치하지 않습니다!
+                    </span>
+                </div>
                 <input name="re_passwd" type="password" class="form-control" id="InputPassword2">
             </div>
             <button type="submit" class="btn btn-primary" id="signUp">Submit</button>

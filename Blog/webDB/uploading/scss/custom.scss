@@ -85,3 +85,17 @@ html, body{
     margin:10vh auto;
     width:560px;
 }
+.re_passwd{
+    display: flex;
+    justify-content: space-between;
+}
+#not-same-pw{
+    color:$red-500;
+    font-weight: bold;
+}
+#check-nickname{
+    margin-top: 0.4rem;
+    background-color:$green-500;
+    border-color:$green-500;
+    color:$white;
+}
