@@ -15,7 +15,12 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </head>
-<body>
+<body>    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.php">Community</a>
+        </div>
+    </nav>
     <div class="signUp">
         <form action="signUp_process.php" method="post">
             <div class="mb-3">

@@ -2,14 +2,7 @@
 session_start();
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 if(!isset($_SESSION['email'])){
-    echo "로그인 되지 않아있다.";
-    $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Login
-                    </button>';
-
-    $button2 = '로그인 하세요';
-    $button2_url = '#';
+    echo "<script> document.location.href='index.php'; </script>";
 }else{
     $loginButton = '
                 <form action="logout.php" method="post" class="logoutButton">
@@ -18,13 +11,9 @@ if(!isset($_SESSION['email'])){
                     </button>
                 </form>';
     echo "로그인 중입니다.";
-    $sql = "SELECT * from written";
+    $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    print_r($row);
-
-    $button2 = '내 글 보기';
-    $button2_url = 'written.php';
 }
 ?>
 
@@ -121,90 +110,18 @@ if(!isset($_SESSION['email'])){
             </div>
         </div>
     </nav>
-    <div class="album">
-        <div class="banner col-12 row">
-            <img src="data/banner 01.jpg" class="rounded" alt="...">
-            <hr>
-            <span class="banner-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                nihil voluptate
-                repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                veritatis in velit recusandae nemo aspernatur!</span>
-            <hr>
-        </div>
-        <div class="container col-10">
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
+    <div class="wrap-form">
+        <form action="writting_process.php" method="post" class="d-flex" id="writting-form">
+            <div class="form-floating">
+                <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                <label for="floatingTextarea">제목 작성</label>
             </div>
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
+            <div class="form-floating">
+                <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150em"></textarea>
+                <label for="floatingTextarea2">본문 작성</label>
             </div>
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-            <div class="contents">
-                <img src="data/sample.png" class="rounded" alt="...">
-                <span class="contents-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary">View</button>
-                    <button class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-            </div>
-        </div>
-        <div id="list-example" class="list-group col-2">
-            <a class="list-group-item list-group-item-action" href="index.php">전체 글 보기</a>
-            <a class="list-group-item list-group-item-action" href="<?= $button2_url ?>"><?= $button2 ?></a>
-            <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
-            <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-        </div>
+            <button class="btn btn-primary" name="check-nickname" type="submit">submit</button>
+        </form>
     </div>
 </body>
 

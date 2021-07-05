@@ -99,3 +99,17 @@ html, body{
     border-color:$green-500;
     color:$white;
 }
+.wrap-form{
+    margin:3em auto;
+    width:960px;
+}
+.form-control{
+    resize:none;
+}
+#floatingTextarea2{
+    margin-bottom: 1em;
+}
+#writting-form{
+    display: flex;
+    flex-direction: column;
+}

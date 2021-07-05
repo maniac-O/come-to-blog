@@ -7,9 +7,7 @@ if(!isset($_SESSION['email'])){
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Login
                     </button>';
-
-    $button2 = '로그인 하세요';
-    $button2_url = '#';
+    echo "<script> document.location.href='index.php'; </script>";
 }else{
     $loginButton = '
                 <form action="logout.php" method="post" class="logoutButton">
@@ -18,14 +16,59 @@ if(!isset($_SESSION['email'])){
                     </button>
                 </form>';
     echo "로그인 중입니다.";
-    $sql = "SELECT * from written";
+    $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
-    print_r($row);
 
-    $button2 = '내 글 보기';
-    $button2_url = 'written.php';
+
+    print_r($row);
 }
+
+/*
+while($row = mysqli_fetch_array($result)){
+    
+    print_r($row);
+    $list = $list."<li><a href=\"index2.php?id={$row['uid']}\">{$row['email']}</a></li>";
+}
+
+echo $list;
+/*
+$conn = mysqli_connect('localhost','root','root','opentutorials');
+
+$sql = "SELECT * FROM topic";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $list = '';
+    while($row = mysqli_fetch_array($result)){
+        print_r($row);
+        $list = $list."<li><a href=\"index2.php?id={$row['id']}\">{$row['title']}</a></li>";
+    }
+/*
+$article = array('title'=>'Welcome',
+    'description'=>'Hello, web');
+
+$update_link = '';
+$delete_link = '';
+$author = '';
+if(isset($_GET['id'])){
+    $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
+    $sql = "SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id WHERE topic.id={$filtered_id}";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $article = array('title'=>$row['title'],
+        'description'=>htmlspecialchars($row['description']),
+        'name'=>htmlspecialchars($row['name']));
+
+    $update_link = "<a href=\"update2.php?id={$_GET['id']}\">update</a>";
+    $delete_link = "
+        <form action='delete2_process.php' method='post'>
+            <input type='hidden' name='id' value='{$_GET['id']}'>
+            <input type='submit' value='delete'>
+        </form>
+    ";
+    $author = "<p>by {$article['name']}</p>";
+}
+*/
 ?>
 
 <!DOCTYPE html>
@@ -201,8 +244,8 @@ if(!isset($_SESSION['email'])){
         </div>
         <div id="list-example" class="list-group col-2">
             <a class="list-group-item list-group-item-action" href="index.php">전체 글 보기</a>
-            <a class="list-group-item list-group-item-action" href="<?= $button2_url ?>"><?= $button2 ?></a>
-            <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
+            <a class="list-group-item list-group-item-action" href="written.php">나의 글 보기</a>
+            <a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>
             <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
         </div>
     </div>
