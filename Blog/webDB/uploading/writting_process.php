@@ -10,11 +10,11 @@ $text = $_POST['text'];
 $email = $_SESSION['email'];
 $date = date('Y-d-m_H-i-s', time()); 
 
-$upload_dir = "E:/web/come-to-blog/Blog/webDB/written/{$email}/{$date}/";
+$upload_dir = "E:/web/written/{$email}/{$date}/";
 if(!is_dir($upload_dir)){
     mkdir($upload_dir);
 }
-$upload_dir = "E:/web/come-to-blog/Blog/webDB/written/{$email}/{$date}/{$title}/";
+$upload_dir = "E:/web/written/{$email}/{$date}/{$title}/";
 if(!is_dir($upload_dir)){
     mkdir($upload_dir);
 }

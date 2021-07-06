@@ -10750,8 +10750,12 @@ html, body {
   height: 100%;
 }
 
+#wrap-body {
+  background-color: #f8f9fa;
+  height: 100%;
+}
+
 .album {
-  background: #f8f9fa;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -10798,8 +10802,9 @@ html, body {
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  background: #fff;
+  background-color: #fff;
   border-radius: 3px;
+  overflow: hidden;
   width: 300px;
   height: 400px;
   margin-bottom: 15px;
@@ -10812,16 +10817,48 @@ html, body {
   height: 60%;
 }
 
+.title-division {
+  margin: 0 5%;
+}
+
+.contents-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 5%;
+}
+
 .contents-body {
   height: 20%;
   overflow: hidden;
   margin-bottom: 5px;
   padding: 5px;
+  margin: 0 5%;
+}
+
+.contents-date {
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.nav-btns {
+  padding: 7px 0;
+  width: 20%;
 }
 
 .btn-group {
-  padding: 7px;
-  width: 20%;
+  background-color: #0d6efd;
+}
+
+#contents-buttons {
+  padding: 7px 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#contents-buttons > div:first-child {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .logoutButton {

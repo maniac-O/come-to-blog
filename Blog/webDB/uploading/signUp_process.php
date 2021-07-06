@@ -23,7 +23,7 @@ if(empty($result)){
     exit;
 }
 
-$upload_dir = "E:/web/come-to-blog/Blog/webDB/written/{$email}/";
+$upload_dir = "E:/web/written/{$email}/";
 if(!is_dir($upload_dir)){
     mkdir($upload_dir);
 }
