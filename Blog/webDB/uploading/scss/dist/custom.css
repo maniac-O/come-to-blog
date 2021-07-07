@@ -10747,18 +10747,20 @@ textarea.form-control-lg {
   }
 }
 html, body {
-  height: 100%;
+  height: 100rem;
 }
 
 #wrap-body {
-  background-color: #f8f9fa;
-  height: 100%;
+  height: 100rem;
+  display: inline-block;
 }
 
 .album {
+  height: 100rem;
+  background-color: #f8f9fa;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-direction: column;
   padding: 0 20%;
   padding-top: 15px;
   margin: 0;
@@ -10779,15 +10781,18 @@ html, body {
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: flex-start;
-  width: 100%;
   height: 100%;
+  padding: 0;
 }
 
 .banner {
   height: 400px;
-  margin-bottom: 15px;
+  margin: 0;
+}
+.banner > img {
+  object-fit: none;
 }
 
 .banner-body {
@@ -10795,6 +10800,7 @@ html, body {
   font-size: 1.5rem;
   margin-bottom: 15px;
   overflow: hidden;
+  text-align: center;
 }
 
 .contents {
@@ -10812,13 +10818,13 @@ html, body {
 }
 
 .rounded {
-  margin-bottom: 5px;
+  margin-bottom: 2%;
   width: 100%;
   height: 60%;
 }
 
 .title-division {
-  margin: 0 5%;
+  margin: 0 2%;
 }
 
 .contents-title {
@@ -10826,14 +10832,15 @@ html, body {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0 5%;
+  padding-bottom: 2%;
 }
 
 .contents-body {
-  height: 20%;
+  height: 40%;
   overflow: hidden;
   margin-bottom: 5px;
   padding: 5px;
-  margin: 0 5%;
+  margin: 0 2%;
 }
 
 .contents-date {
@@ -10910,3 +10917,91 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+.wrap-body {
+  display: flex;
+  flex-direction: row;
+}
+
+#floatingTextarea {
+  margin-bottom: 1em;
+}
+
+#floatingTextarea2 {
+  height: 150em;
+}
+
+.wrap-main {
+  height: 170em;
+  background-color: #f8f9fa;
+}
+
+/* PC (해상도 1024px)*/
+@media all and (min-width: 1024px) {
+  #container-id {
+    width: 80vw;
+  }
+
+  .list-group {
+    width: 20%;
+  }
+}
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (max-width: 1023px) {
+  #dropdownMenuButton {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .nav-btns {
+    width: 100%;
+  }
+
+  .album {
+    padding: 0;
+  }
+
+  .row > img, hr, span {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .banner {
+    display: none;
+  }
+
+  .banner-body {
+    height: 75px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0 auto;
+    max-width: none;
+    justify-content: center;
+  }
+
+  .list-group {
+    font-size: 0.9rem;
+    width: 100vw;
+    margin: 15px 0;
+  }
+
+  .wrap-body {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .wrap-form {
+    width: 100%;
+  }
+
+  #floatingTextarea2 {
+    height: 75em;
+  }
+}
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
