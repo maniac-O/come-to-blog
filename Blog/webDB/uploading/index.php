@@ -1,6 +1,8 @@
 <?php
 session_start();
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
+
+// 로그인 상태 확인하여 로그인 버튼 조절
 if(!isset($_SESSION['email'])){
     echo "로그인 되지 않아있다.";
     $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -8,8 +10,8 @@ if(!isset($_SESSION['email'])){
                         Login
                     </button>';
 
-    $button2 = '로그인 하세요';
-    $button2_url = '#';
+    // 2번 버튼 조절
+    $button2 = '<a class="list-group-item list-group-item-action" href="#">로그인 하세요</a>';
 }else{
     $loginButton = '
                 <form action="logout.php" method="post" class="logoutButton">
@@ -18,14 +20,25 @@ if(!isset($_SESSION['email'])){
                     </button>
                 </form>';
     echo "로그인 중입니다.";
-    $sql = "SELECT * from written";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_array($result);
 
-    $button2 = '내 글 보기';
-    $button2_url = 'written.php';
+    // 2번 버튼 조절
+    $button2 = '<a class="list-group-item list-group-item-action" href="?written.php">내 글 보기</a>';
 }
-$sql = "SELECT * from written order by wid desc;";
+
+    $Current_URI = $_SERVER['QUERY_STRING'];
+
+    // 1번 버튼 클릭 시 변화 (메인 화면)
+    if($Current_URI == 'index.php'){
+        $sql = "SELECT * from written order by wid desc;";
+        $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
+    }else if($Current_URI == 'written.php'){
+    // 2번 버튼 클릭 시 변화 (내 글 보기 화면)
+        $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' ) order by wid desc;";
+        $button3 = '<a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>';
+    }else{
+        $sql = "SELECT * from written order by wid desc;";
+        $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
+    }
     $result = mysqli_query($conn, $sql);
 
     $list = '';
@@ -167,14 +180,16 @@ $sql = "SELECT * from written order by wid desc;";
                     veritatis in velit recusandae nemo aspernatur!</span>
                 <hr>
             </div>
-            <div class="container col-10">
-                <?= $list ?>
-            </div>
-            <div id="list-example" class="list-group col-2">
-                <a class="list-group-item list-group-item-action" href="index.php">전체 글 보기</a>
-                <a class="list-group-item list-group-item-action" href="<?= $button2_url ?>"><?= $button2 ?></a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+            <div class="wrap-body">
+                <div class="container" id="container-id">
+                    <?= $list ?>
+                </div>
+                <div id="list-example" class="list-group">
+                    <a class="list-group-item list-group-item-action" href="?index.php">전체 글 보기</a>
+                    <?= $button2?>
+                    <?= $button3?>
+                    <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
+                </div>
             </div>
         </div>
     </div>
