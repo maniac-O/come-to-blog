@@ -22,36 +22,53 @@ if(!isset($_SESSION['email'])){
     echo "로그인 중입니다.";
 
     // 2번 버튼 조절
-    $button2 = '<a class="list-group-item list-group-item-action" href="?written.php">내 글 보기</a>';
+    $button2 = '<a class="list-group-item list-group-item-action" href="?written">내 글 보기</a>';
 }
 
     $Current_URI = $_SERVER['QUERY_STRING'];
+    $btn_edit_none = "<style> .btn-edit {display:none !important; }</style>";
+    $btn_edit_block = "<style> .btn-edit {display:inline-block !important; }</style>";
+
 
     // 1번 버튼 클릭 시 변화 (메인 화면)
-    if($Current_URI == 'index.php'){
+    if($Current_URI == 'main'){
         $sql = "SELECT * from written order by wid desc;";
         $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
-    }else if($Current_URI == 'written.php'){
+
+        //수정 버튼 숨기기
+        echo $btn_edit_none;
+    
+    }else if($Current_URI == 'written'){
     // 2번 버튼 클릭 시 변화 (내 글 보기 화면)
         $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' ) order by wid desc;";
         $button3 = '<a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>';
+        
+        //수정 버튼 보이기
+        echo $btn_edit_block;
     }else{
         $sql = "SELECT * from written order by wid desc;";
         $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
+
+        //수정 버튼 숨기기
+        echo $btn_edit_none;
     }
+    
     $result = mysqli_query($conn, $sql);
 
+    $i = 1;
     $list = '';
     // 본문 미리보기 생성
     while($row = mysqli_fetch_array($result)){
         $url = $row['url'];
         $url_pieces = explode("/", $url);
-        $url = $url.$url_pieces[5];
+
+        $img_url = "./data/$url_pieces[5].png";
         $date = $row['date'];
 
         // 미리보기 내용 생성
         $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
         $text = '';
+
         // 파일 내용 출력
         while( !feof($file) ) {
             $text =  $text.fgets($file);
@@ -59,20 +76,22 @@ if(!isset($_SESSION['email'])){
         fclose($file);
 
         $list = $list." <div class='contents'>
-                            <img src='data/sample.png' class='rounded' alt='...'>
+                            <img src='$img_url' class='rounded' alt='...'>
                             <span class='contents-title'>{$url_pieces[5]}</span>
                             <hr class='title-division'>
                             <span class='contents-body'>{$text}</span>
                             <div id='contents-buttons' class='btn-group'>
                                 <div>
-                                    <button class='btn btn-sm btn-outline-light'>View</button>
-                                    <button class='btn btn-sm btn-outline-light'>Edit</button>
+                                    <button class='btn btn-sm btn-outline-light btn-view'>View</button>
+                                    <button class='btn btn-sm btn-outline-light btn-edit'>Edit</button>
                                 </div>
                                 <div class='contents-date'>
                                     {$date}
                                 </div>
                             </div>
                         </div>";
+        
+        $i = $i + 1;
     }
 ?>
 
@@ -172,7 +191,9 @@ if(!isset($_SESSION['email'])){
         </nav>
         <div class="album">
             <div class="banner col-12 row">
-                <img src="data/banner 01.jpg" class="rounded" alt="...">
+                <div class="wrap-banner-img">
+                    <img src="data/banner 13.jpg" class="rounded" alt="...">
+                </div>
                 <hr>
                 <span class="banner-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
                     nihil voluptate
@@ -185,7 +206,7 @@ if(!isset($_SESSION['email'])){
                     <?= $list ?>
                 </div>
                 <div id="list-example" class="list-group">
-                    <a class="list-group-item list-group-item-action" href="?index.php">전체 글 보기</a>
+                    <a class="list-group-item list-group-item-action" href="?main">전체 글 보기</a>
                     <?= $button2?>
                     <?= $button3?>
                     <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>

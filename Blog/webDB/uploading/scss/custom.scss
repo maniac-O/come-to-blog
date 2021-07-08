@@ -1,229 +1,244 @@
 // Include any default variable overrides here (though functions won't be available)
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 // Then add additional custom code here
 // Source mixin
-html, body{
-    height:100rem;
+html,
+body {
+    height: 100rem;
 }
-#wrap-body{
-    height:100rem;
-    display:inline-block;
+#wrap-body {
+    height: 100rem;
+    display: inline-block;
 }
-.album{
-    height:100rem;
-    background-color:$gray-100;
+.wrap-main {
+    height: 130em;
+    background-color: $gray-100;
+}
+.album {
+    height: 100rem;
+    background-color: $gray-100;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    padding:0 20%;
-    padding-top:15px;
-    margin:0;
+    padding: 0 20%;
+    padding-top: 15px;
+    margin: 0;
 }
-.list-group{
-    background:$white;
+.list-group {
+    background: $white;
 }
-#dropdownMenuButton{
+#dropdownMenuButton {
     margin-left: 40%;
 }
-.dropdown-menu{
-    right:0;
+.dropdown-menu {
+    right: 0;
 }
-.container{
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-content: flex-start;
-    height:100%;
-    padding:0;
-
+    height: 100%;
+    padding: 0;
 }
-.banner{
-    height:400px;
-    margin:0;
-    & > img {
+.banner {
+    height: 400px;
+    margin: 0;
+}
+.wrap-banner-img {
+    height: 60%;
+    overflow: hidden;
+    position: relative;
+    img {
         object-fit: none;
+        height: 100%;
     }
 }
-.banner-body{
+.banner-body {
     height: 75px;
     font-size: 1.5rem;
     margin-bottom: 15px;
     overflow: hidden;
     text-align: center;
 }
-.contents{
+.contents {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
-    background-color:$white;
+    background-color: $white;
     border-radius: 3px;
     overflow: hidden;
 
-    width:300px;
-    height:400px;
+    width: 300px;
+    height: 400px;
     margin-bottom: 15px;
     margin-left: 7px;
 }
-.rounded{
+.rounded {
     margin-bottom: 2%;
-    width:100%;
-    height:60%;
+    width: 100%;
+    height: 60%;
 }
-.title-division{
-    margin:0 2%;
+.title-division {
+    margin: 0 2%;
 }
-.contents-title{
+.contents-title {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin:0 5%;
+    margin: 0 5%;
     padding-bottom: 2%;
 }
-.contents-body{
-    height:40%;
+.contents-body {
+    height: 40%;
     overflow: hidden;
     margin-bottom: 5px;
-    padding:5px;
-    margin:0 2%;
+    padding: 5px;
+    margin: 0 2%;
 }
-.contents-date{
-    font-size:0.8em;
-    color:$white;
+.contents-date {
+    font-size: 0.8em;
+    color: $white;
 }
-.nav-btns{
-    padding:7px 0;
+.nav-btns {
+    padding: 7px 0;
     width: 20%;
 }
-.btn-group{
+.btn-group {
     background-color: $blue;
 }
-#contents-buttons{
-    padding:7px 3%;
-    display:flex;
-    justify-content:space-between;
+#contents-buttons {
+    padding: 7px 3%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     & > div:first-child {
         display: flex;
-        justify-content:flex-start
+        justify-content: flex-start;
     }
 }
-.logoutButton{
-    margin-left:40%;
-    margin-bottom:0;
+.logoutButton {
+    margin-left: 40%;
+    margin-bottom: 0;
     position: relative;
     flex: 1 1 auto;
-    & > button{
-        width:100%;
+    & > button {
+        width: 100%;
     }
 }
-.signUp{
-    margin:10vh auto;
-    width:560px;
+.signUp {
+    margin: 10vh auto;
+    width: 560px;
 }
-.re_passwd{
+.re_passwd {
     display: flex;
     justify-content: space-between;
 }
-#not-same-pw{
-    color:$red-500;
+#not-same-pw {
+    color: $red-500;
     font-weight: bold;
 }
-#check-nickname{
+#check-nickname {
     margin-top: 0.4rem;
-    background-color:$green-500;
-    border-color:$green-500;
-    color:$white;
+    background-color: $green-500;
+    border-color: $green-500;
+    color: $white;
 }
-.wrap-form{
-    margin:3em auto;
-    width:960px;
+.wrap-form {
+    margin: 3em auto;
+    width: 960px;
 }
-.form-control{
-    resize:none;
+.form-control {
+    resize: none;
 }
-#floatingTextarea2{
-    margin-bottom: 1em;
-}
-#writting-form{
+#writting-form {
     display: flex;
     flex-direction: column;
 }
-.wrap-body{
+.wrap-body {
     display: flex;
     flex-direction: row;
 }
-#floatingTextarea{
+#floatingTextarea {
     margin-bottom: 1em;
 }
-#floatingTextarea2{
-    height:150em;
+#floatingTextarea2 {
+    height: 100em;
+    margin-bottom: 1em;
 }
-.wrap-main{
-    height: 170em;
-    background-color: $gray-100;
+.upload-thumbnail-label{
+    border-right:1px solid gray;
+    padding-right:10px;
+}
+.upload-extends-label{
+    padding-left:10px;
+    color:$red-400;
+    font-weight: bold
 }
 
-/* PC (해상도 1024px)*/ 
-@media all and (min-width:1024px) { 
-    #container-id{
-        width:80vw;
+/* PC (해상도 1024px)*/
+@media all and (min-width: 1024px) {
+    #container-id {
+        width: 80vw;
     }
-    .list-group{
-        width:20%;
+    .list-group {
+        width: 20%;
     }
-} 
-/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
-@media all and (max-width:1023px) { 
-    #dropdownMenuButton{
-        margin-left:0;
-        width:100%;
+}
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (max-width: 1023px) {
+    #dropdownMenuButton {
+        margin-left: 0;
+        width: 100%;
     }
-    .nav-btns{
-        width:100%;
+    .nav-btns {
+        width: 100%;
     }
-    .album{
-        padding:0;
+    .album {
+        padding: 0;
     }
-    .row > img, hr, span {
-        margin:0;
-        padding-left:0;
-        padding-right:0;
+    .row > img,
+    hr,
+    span {
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
-    .banner{
+    .banner {
         display: none;
     }
-    .banner-body{
+    .banner-body {
         height: 75px;
         font-size: 1rem;
         margin-bottom: 15px;
         overflow: hidden;
     }
-    .container{
-        width:100%;
-        padding:0 auto;
+    .container {
+        width: 100%;
+        padding: 0 auto;
         max-width: none;
         justify-content: center;
     }
-    .list-group{
-        font-size:0.9rem;
-        width:100vw;
+    .list-group {
+        font-size: 0.9rem;
+        width: 100vw;
         margin: 15px 0;
     }
-    .wrap-body{
+    .wrap-body {
         display: flex;
         flex-direction: column-reverse;
     }
-    .wrap-form{
-        width:100%;
+    .wrap-form {
+        width: 100%;
     }
-    #floatingTextarea2{
-        height:75em;
+    #floatingTextarea2 {
+        height: 75em;
     }
-} 
+}
 
-/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
-@media all and (max-width:700px) { 
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (max-width: 700px) {
 }

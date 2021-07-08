@@ -10746,13 +10746,19 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-html, body {
+html,
+body {
   height: 100rem;
 }
 
 #wrap-body {
   height: 100rem;
   display: inline-block;
+}
+
+.wrap-main {
+  height: 130em;
+  background-color: #f8f9fa;
 }
 
 .album {
@@ -10791,8 +10797,15 @@ html, body {
   height: 400px;
   margin: 0;
 }
-.banner > img {
+
+.wrap-banner-img {
+  height: 60%;
+  overflow: hidden;
+  position: relative;
+}
+.wrap-banner-img img {
   object-fit: none;
+  height: 100%;
 }
 
 .banner-body {
@@ -10909,10 +10922,6 @@ html, body {
   resize: none;
 }
 
-#floatingTextarea2 {
-  margin-bottom: 1em;
-}
-
 #writting-form {
   display: flex;
   flex-direction: column;
@@ -10928,12 +10937,19 @@ html, body {
 }
 
 #floatingTextarea2 {
-  height: 150em;
+  height: 100em;
+  margin-bottom: 1em;
 }
 
-.wrap-main {
-  height: 170em;
-  background-color: #f8f9fa;
+.upload-thumbnail-label {
+  border-right: 1px solid gray;
+  padding-right: 10px;
+}
+
+.upload-extends-label {
+  padding-left: 10px;
+  color: #e35d6a;
+  font-weight: bold;
 }
 
 /* PC (해상도 1024px)*/
@@ -10961,7 +10977,9 @@ html, body {
     padding: 0;
   }
 
-  .row > img, hr, span {
+  .row > img,
+hr,
+span {
     margin: 0;
     padding-left: 0;
     padding-right: 0;

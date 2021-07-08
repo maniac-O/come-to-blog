@@ -112,7 +112,7 @@ if(!isset($_SESSION['email'])){
             </div>
         </nav>
         <div class="wrap-form">
-            <form action="writting_process.php" method="post" class="d-flex" id="writting-form">
+            <form action="writting_process.php" method="post" enctype='multipart/form-data' class="d-flex" id="writting-form">
                 <div class="form-floating">
                     <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                     <label for="floatingTextarea">제목 작성</label>
@@ -120,6 +120,10 @@ if(!isset($_SESSION['email'])){
                 <div class="form-floating">
                     <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
                     <label for="floatingTextarea2">본문 작성</label>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label"><span class="upload-thumbnail-label">Upload Thumbnail</span><span class="upload-extends-label">jpg, jpeg, png, gif extends only</span></label>
+                    <input class="form-control" type="file" id="formFile" name="thumbnail">
                 </div>
                 <button class="btn btn-primary" name="check-nickname" type="submit">submit</button>
             </form>

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Bootstrap v5.0.2 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -11499,19 +11500,27 @@ fieldset:disabled .btn {
 }
 
 html, body {
-  height: 100%;
+  height: 100rem;
+}
+
+#wrap-body {
+  height: 100rem;
+  display: inline-block;
 }
 
 .album {
-  background: #f8f9fa;
+  height: 100rem;
+  background-color: #f8f9fa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 0 20%;
   padding-top: 15px;
   margin: 0;
@@ -11535,18 +11544,30 @@ html, body {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-line-pack: start;
       align-content: flex-start;
-  width: 100%;
   height: 100%;
+  padding: 0;
 }
 
 .banner {
   height: 400px;
-  margin-bottom: 15px;
+  margin: 0;
+}
+
+.wrap-banner-img {
+  height: 60%;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrap-banner-img img {
+  -o-object-fit: none;
+     object-fit: none;
+  height: 100%;
 }
 
 .banner-body {
@@ -11554,6 +11575,7 @@ html, body {
   font-size: 1.5rem;
   margin-bottom: 15px;
   overflow: hidden;
+  text-align: center;
 }
 
 .contents {
@@ -11568,8 +11590,9 @@ html, body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   text-align: center;
-  background: #fff;
+  background-color: #fff;
   border-radius: 3px;
+  overflow: hidden;
   width: 300px;
   height: 400px;
   margin-bottom: 15px;
@@ -11577,21 +11600,65 @@ html, body {
 }
 
 .rounded {
-  margin-bottom: 5px;
+  margin-bottom: 2%;
   width: 100%;
   height: 60%;
 }
 
+.title-division {
+  margin: 0 2%;
+}
+
+.contents-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0 5%;
+  padding-bottom: 2%;
+}
+
 .contents-body {
-  height: 20%;
+  height: 40%;
   overflow: hidden;
   margin-bottom: 5px;
   padding: 5px;
+  margin: 0 2%;
+}
+
+.contents-date {
+  font-size: 0.8em;
+  color: #fff;
+}
+
+.nav-btns {
+  padding: 7px 0;
+  width: 20%;
 }
 
 .btn-group {
-  padding: 7px;
-  width: 20%;
+  background-color: #0d6efd;
+}
+
+#contents-buttons {
+  padding: 7px 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#contents-buttons > div:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .logoutButton {
@@ -11655,4 +11722,95 @@ html, body {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+
+.wrap-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#floatingTextarea {
+  margin-bottom: 1em;
+}
+
+#floatingTextarea2 {
+  height: 150em;
+}
+
+.wrap-main {
+  height: 170em;
+  background-color: #f8f9fa;
+}
+
+/* PC (해상도 1024px)*/
+@media all and (min-width: 1024px) {
+  #container-id {
+    width: 80vw;
+  }
+  .list-group {
+    width: 20%;
+  }
+}
+
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (max-width: 1023px) {
+  #dropdownMenuButton {
+    margin-left: 0;
+    width: 100%;
+  }
+  .nav-btns {
+    width: 100%;
+  }
+  .album {
+    padding: 0;
+  }
+  .row > img, hr, span {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .banner {
+    display: none;
+  }
+  .banner-body {
+    height: 75px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+  .container {
+    width: 100%;
+    padding: 0 auto;
+    max-width: none;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .list-group {
+    font-size: 0.9rem;
+    width: 100vw;
+    margin: 15px 0;
+  }
+  .wrap-body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+  }
+  .wrap-form {
+    width: 100%;
+  }
+  #floatingTextarea2 {
+    height: 75em;
+  }
+}
+
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
 /*# sourceMappingURL=custom.css.map */
