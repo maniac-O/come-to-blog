@@ -11,9 +11,29 @@ if(!isset($_SESSION['email'])){
                     </button>
                 </form>';
     echo "로그인 중입니다.";
-    $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
+}
+
+// 업데이트 하는 부분
+$name = $_POST['wid'];
+if($name){
+    $sql = "SELECT * from written where wid = {$name};";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
+    
+    $url = $row['url'];
+    $url_pieces = explode("/", $url);
+    
+
+    // 미리보기 내용 생성
+    $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
+    $title = $url_pieces[6];
+    $text = '';
+
+    // 파일 내용 출력
+    while( !feof($file) ) {
+        $text =  $text.fgets($file);
+    }
+    fclose($file);
 }
 ?>
 
@@ -114,11 +134,11 @@ if(!isset($_SESSION['email'])){
         <div class="wrap-form">
             <form action="writting_process.php" method="post" enctype='multipart/form-data' class="d-flex" id="writting-form">
                 <div class="form-floating">
-                    <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                    <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"><?= $title?></textarea>
                     <label for="floatingTextarea">제목 작성</label>
                 </div>
                 <div class="form-floating">
-                    <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"></textarea>
+                    <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"><?= $text?></textarea>
                     <label for="floatingTextarea2">본문 작성</label>
                 </div>
                 <div class="mb-3">

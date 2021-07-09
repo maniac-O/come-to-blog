@@ -2,11 +2,6 @@
 session_start();
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 if(!isset($_SESSION['email'])){
-    echo "로그인 되지 않아있다.";
-    $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Login
-                    </button>';
     echo "<script> document.location.href='index.php'; </script>";
 }else{
     $loginButton = '
@@ -16,44 +11,28 @@ if(!isset($_SESSION['email'])){
                     </button>
                 </form>';
     echo "로그인 중입니다.";
-    $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
+}
+
+$name = $_POST['wid'];
+if($name){
+    $sql = "SELECT * from written where wid = {$name};";
     $result = mysqli_query($conn, $sql);
-
-    $list = '';
-    // 본문 미리보기 생성
-    while($row = mysqli_fetch_array($result)){
-        $url = $row['url'];
-        $url_pieces = explode("/", $url);
-        $url = $url.$url_pieces[5];
-        $date = $row['date'];
-
-        // 미리보기 내용 생성
-        $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
-        $text = '';
-        // 파일 내용 출력
-        while( !feof($file) ) {
-            $text =  $text.fgets($file);
-        }
-        fclose($file);
-
-        $list = $list." <div class='contents'>
-                            <img src='data/sample.png' class='rounded' alt='...'>
-                            <span class='contents-title'>{$url_pieces[5]}</span>
-                            <hr class='title-division'>
-                            <span class='contents-body'>{$text}</span>
-                            <div id='contents-buttons' class='btn-group'>
-                                <div>
-                                    <button class='btn btn-sm btn-outline-light'>View</button>
-                                    <button class='btn btn-sm btn-outline-light'>Edit</button>
-                                </div>
-                                <div class='contents-date'>
-                                    {$date}
-                                </div>
-                            </div>
-                        </div>";
-    }
-
+    $row = mysqli_fetch_array($result);
     
+    $url = $row['url'];
+    $url_pieces = explode("/", $url);
+    
+
+    // 미리보기 내용 생성
+    $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
+    $title = $url_pieces[6];
+    $text = '';
+
+    // 파일 내용 출력
+    while( !feof($file) ) {
+        $text =  $text.fgets($file);
+    }
+    fclose($file);
 }
 ?>
 
@@ -77,8 +56,8 @@ if(!isset($_SESSION['email'])){
 </head>
 
 <body>
-    <div id="wrap-body">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="wrap-main">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.php">Community</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -151,25 +130,22 @@ if(!isset($_SESSION['email'])){
                 </div>
             </div>
         </nav>
-        <div class="album">
-            <div class="banner col-12 row">
-                <img src="data/banner 01.jpg" class="rounded" alt="...">
-                <hr>
-                <span class="banner-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <hr>
-            </div>
-            <div class="container col-10">
-                <?= $list ?>
-            </div>
-            <div id="list-example" class="list-group col-2">
-                <a class="list-group-item list-group-item-action" href="index.php">전체 글 보기</a>
-                <a class="list-group-item list-group-item-action" href="written.php">나의 글 보기</a>
-                <a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
-            </div>
+        <div class="wrap-form">
+            <form action="writting_process.php" method="post" enctype='multipart/form-data' class="d-flex" id="writting-form">
+                <div class="form-floating">
+                    <textarea name="title" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"><?= $title?></textarea>
+                    <label for="floatingTextarea">제목 작성</label>
+                </div>
+                <div class="form-floating">
+                    <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"><?= $text?></textarea>
+                    <label for="floatingTextarea2">본문 작성</label>
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label"><span class="upload-thumbnail-label">Upload Thumbnail</span><span class="upload-extends-label">jpg, jpeg, png, gif extends only</span></label>
+                    <input class="form-control" type="file" id="formFile" name="thumbnail">
+                </div>
+                <button class="btn btn-primary" name="check-nickname" type="submit">submit</button>
+            </form>
         </div>
     </div>
 </body>

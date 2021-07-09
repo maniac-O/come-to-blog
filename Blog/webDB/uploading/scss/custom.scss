@@ -77,10 +77,17 @@ body {
     margin-bottom: 15px;
     margin-left: 7px;
 }
+.wrap-thumbnail{
+    height: 40%;
+    & > img{
+        width:100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+}
 .rounded {
     margin-bottom: 2%;
     width: 100%;
-    height: 60%;
 }
 .title-division {
     margin: 0 2%;
@@ -178,6 +185,13 @@ body {
     color:$red-400;
     font-weight: bold
 }
+.wrap-buttons{
+    & > form{
+        line-height: 1;
+        margin:0;
+    }
+}
+
 
 /* PC (해상도 1024px)*/
 @media all and (min-width: 1024px) {

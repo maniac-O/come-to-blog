@@ -14,7 +14,7 @@ if(!isset($_SESSION['email'])){
     $button2 = '<a class="list-group-item list-group-item-action" href="#">로그인 하세요</a>';
 }else{
     $loginButton = '
-                <form action="logout.php" method="post" class="logoutButton">
+                <form action="logout.php" method="post" class="logoutButton" id="dropdownMenuButton">
                     <button class="btn btn-outline-light" type="submit">
                         Logout
                     </button>
@@ -68,6 +68,7 @@ if(!isset($_SESSION['email'])){
         // 미리보기 내용 생성
         $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
         $text = '';
+        $wid = $row['wid'];
 
         // 파일 내용 출력
         while( !feof($file) ) {
@@ -75,15 +76,23 @@ if(!isset($_SESSION['email'])){
         }
         fclose($file);
 
-        $list = $list." <div class='contents'>
-                            <img src='$img_url' class='rounded' alt='...'>
-                            <span class='contents-title'>{$url_pieces[5]}</span>
+        $list = $list." <div class='contents' data-no='{$wid}'>
+                            <div class='wrap-thumbnail'>
+                                <img src='$img_url' class='rounded' alt='...'>
+                            </div>
+                            <span class='contents-title'>{$url_pieces[6]}</span>
                             <hr class='title-division'>
                             <span class='contents-body'>{$text}</span>
                             <div id='contents-buttons' class='btn-group'>
-                                <div>
-                                    <button class='btn btn-sm btn-outline-light btn-view'>View</button>
-                                    <button class='btn btn-sm btn-outline-light btn-edit'>Edit</button>
+                                <div class='wrap-buttons'>
+                                    <form action='view.php' method='post'>
+                                        <input type='hidden' name='wid' value='{$wid}'>
+                                        <button type='submit' class='btn btn-sm btn-outline-light btn-view'>View</button>
+                                    </form>
+                                    <form action='writting.php' method='post'>
+                                        <input type='hidden' name='wid' value='{$wid}'>
+                                        <button type='submit' class='btn btn-sm btn-outline-light btn-edit'>Edit</button>
+                                    </form>
                                 </div>
                                 <div class='contents-date'>
                                     {$date}
