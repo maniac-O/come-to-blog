@@ -1,3 +1,8 @@
+<?php
+require_once('lib/navbar.php');
+$navbar = print_nav(null);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +21,9 @@
     <script src="index.js"></script>
 </head>
 <body>    
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Community</a>
-        </div>
-    </nav>
+    <?php
+        echo $navbar;
+    ?>
     <div class="signUp">
         <form action="signUp_process.php" method="post">
             <div class="mb-3">
@@ -40,9 +43,15 @@
             <div class="mb-3">
                 <div class="re_passwd">
                     <label for="exampleInputPassword1" class="form-label">Re-enter password</label>
-                    <span id="not-same-pw">
-                        비밀번호가 일치하지 않습니다!
-                    </span>
+                    <div class="toast-container">
+                        <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="not-same-pw">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    입력한 비밀번호가 다릅니다!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <input name="re_passwd" type="password" class="form-control" id="InputPassword2">
             </div>

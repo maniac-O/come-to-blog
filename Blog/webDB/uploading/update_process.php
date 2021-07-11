@@ -26,42 +26,46 @@ fclose($file);
 
 
 $sql = "update written set url = '{$title}' where wid = {$wid};";
-echo $sql;
 $result = mysqli_query($conn, $sql);
 
+if($_FILES['thumbnail']['size']!=0){
+	// 썸내일 이미지를 업로드 하기 위한 준비
+	$allowed_ext = array('jpg','jpeg','png','gif');
 
-// 썸내일 이미지를 업로드 하기 위한 준비
-$allowed_ext = array('jpg','jpeg','png','gif');
+	// 변수 정리
+	$error = $_FILES['thumbnail']['error'];
+	$name = $_FILES['thumbnail']['name'];
+	$ext = explode('.', $name);
+	$ext = array_pop($ext);
+	$name = $wid.'.png';
+	$upload_dir = './data';
 
-// 변수 정리
-$error = $_FILES['thumbnail']['error'];
-$name = $_FILES['thumbnail']['name'];
-$ext = array_pop(explode('.', $name));
-$name = $wid.'.png';
-$upload_dir = './data';
-
-// 오류 확인
-if( $error != UPLOAD_ERR_OK ) {
-	switch( $error ) {
-		case UPLOAD_ERR_INI_SIZE:
-		case UPLOAD_ERR_FORM_SIZE:
-			echo "파일이 너무 큽니다. ($error)";
-		case UPLOAD_ERR_NO_FILE:
-			echo "파일이 첨부되지 않았습니다. ($error)";
-		default:
-			echo "파일이 제대로 업로드되지 않았습니다. ($error)";
+	// 오류 확인
+	if( $error != UPLOAD_ERR_OK ) {
+		switch( $error ) {
+			case UPLOAD_ERR_INI_SIZE:
+			case UPLOAD_ERR_FORM_SIZE:
+				echo "파일이 너무 큽니다. ($error)";
+			case UPLOAD_ERR_NO_FILE:
+				echo "파일이 첨부되지 않았습니다. ($error)";
+			default:
+				echo "파일이 제대로 업로드되지 않았습니다. ($error)";
+		}
+		echo "<script> alert('확인되지 않은 에러!'); 
+			document.location.href='index.php?written'; </script>";
 	}
-	exit;
-}
 
-// 확장자 확인
-if( !in_array($ext, $allowed_ext) ) {
-	echo "허용되지 않는 확장자입니다.";
-	exit;
-}
+	// 확장자 확인
+	if( !in_array($ext, $allowed_ext) ) {
+		echo "<script> alert('허용되지 않는 확장자입니다'); 
+			document.location.href='index.php?written'; </script>";
+	}
 
-// 파일 이동
-move_uploaded_file( $_FILES['thumbnail']['tmp_name'], "$upload_dir/$name");
+	// 파일 이동
+	move_uploaded_file( $_FILES['thumbnail']['tmp_name'], "$upload_dir/$name");
+}else{
+	
+}
 
 
 echo "<script> alert('수정 성공!'); 

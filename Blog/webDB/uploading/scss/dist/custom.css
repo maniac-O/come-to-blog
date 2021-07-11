@@ -10752,6 +10752,7 @@ body {
 }
 
 #wrap-body {
+  width: 100%;
   height: 100rem;
   display: inline-block;
 }
@@ -10762,7 +10763,8 @@ body {
 }
 
 .album {
-  height: 100rem;
+  width: 100%;
+  height: 130em;
   background-color: #f8f9fa;
   display: flex;
   justify-content: flex-start;
@@ -10794,18 +10796,40 @@ body {
 }
 
 .banner {
-  height: 400px;
-  margin: 0;
+  height: 15%;
+  width: 90%;
+  text-align: center;
+  margin: 20px auto;
+}
+.banner > hr {
+  margin-bottom: 20px;
 }
 
 .wrap-banner-img {
-  height: 60%;
+  width: 95%;
+  height: 70%;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
+  border-radius: 0.25rem;
 }
 .wrap-banner-img img {
   object-fit: none;
   height: 100%;
+}
+
+.card {
+  height: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.card-body {
+  display: flex;
+  height: 30%;
+  padding: 0;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .banner-body {
@@ -10865,7 +10889,14 @@ body {
 }
 
 .contents-date {
+  text-align: right;
   font-size: 0.8em;
+  color: #fff;
+}
+
+.contents-writter {
+  text-align: right;
+  font-size: 1em;
   color: #fff;
 }
 
@@ -10907,6 +10938,11 @@ body {
 .re_passwd {
   display: flex;
   justify-content: space-between;
+  text-align: bottom;
+}
+
+.navbar-nav {
+  align-items: center;
 }
 
 #not-same-pw {
@@ -10937,7 +10973,7 @@ body {
 
 .wrap-body {
   display: flex;
-  flex-direction: row;
+  justify-content: flex-start;
 }
 
 #floatingTextarea {
@@ -10947,6 +10983,11 @@ body {
 #floatingTextarea2 {
   height: 100em;
   margin-bottom: 1em;
+}
+
+.view-textarea {
+  background-color: #fff !important;
+  padding-top: 1rem !important;
 }
 
 .upload-thumbnail-label {
@@ -10965,12 +11006,23 @@ body {
   margin: 0;
 }
 
+#goto-Update {
+  display: none;
+}
+
+.view-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pagenation-buttons {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* PC (해상도 1024px)*/
 @media all and (min-width: 1024px) {
-  #container-id {
-    width: 80vw;
-  }
-
   .list-group {
     width: 20%;
   }
@@ -11003,6 +11055,7 @@ span {
   }
 
   .banner-body {
+    width: 100%;
     height: 75px;
     font-size: 1rem;
     margin-bottom: 15px;

@@ -2,15 +2,21 @@
 session_start();
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 
+require_once('lib/navbar.php');
+
+// 클릭 => js에서 감지 => ajax로 php 전송
+// 클릭 => php 감지 => php에서 ajax script 실행?
+// 클릭 => 클릭 한 버튼의 index 번호를 받아오면 index * 12해서 표시
+
 // 로그인 상태 확인하여 로그인 버튼 조절
 if(!isset($_SESSION['email'])){
-    echo "로그인 되지 않아있다.";
     $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Login
                     </button>';
 
     // 2번 버튼 조절
+    $navbar = print_nav($loginButton);
     $button2 = '<a class="list-group-item list-group-item-action" href="#">로그인 하세요</a>';
 }else{
     $loginButton = '
@@ -19,8 +25,8 @@ if(!isset($_SESSION['email'])){
                         Logout
                     </button>
                 </form>';
-    echo "로그인 중입니다.";
 
+    $navbar = print_nav($loginButton);
     // 2번 버튼 조절
     $button2 = '<a class="list-group-item list-group-item-action" href="?written">내 글 보기</a>';
 }
@@ -32,22 +38,22 @@ if(!isset($_SESSION['email'])){
 
     // 1번 버튼 클릭 시 변화 (메인 화면)
     if($Current_URI == 'main'){
-        $sql = "SELECT * from written order by wid desc;";
-        $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
+        $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
+        $button3 = '';
 
         //수정 버튼 숨기기
         echo $btn_edit_none;
     
     }else if($Current_URI == 'written'){
     // 2번 버튼 클릭 시 변화 (내 글 보기 화면)
-        $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' ) order by wid desc;";
+        $sql = "SELECT * from user, written where user.uid = written.uid and written.uid = (select uid from user where email like '{$_SESSION['email']}' ) order by wid desc;";
         $button3 = '<a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>';
         
         //수정 버튼 보이기
         echo $btn_edit_block;
     }else{
-        $sql = "SELECT * from written order by wid desc;";
-        $button3 = '<a class="list-group-item list-group-item-action" href="#">Item3</a>';
+        $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
+        $button3 = '';
 
         //수정 버튼 숨기기
         echo $btn_edit_none;
@@ -64,6 +70,7 @@ if(!isset($_SESSION['email'])){
 
         $img_url = "./data/$url_pieces[5].png";
         $date = $row['date'];
+        $writter = $row['nickname'];
 
         // 미리보기 내용 생성
         $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
@@ -76,9 +83,10 @@ if(!isset($_SESSION['email'])){
         }
         fclose($file);
 
-        $list = $list." <div class='contents' data-no='{$wid}'>
+        $img_error = "this.src='./data/error.png'";
+        $list = $list." <div class='contents' data-no='{$i}'>
                             <div class='wrap-thumbnail'>
-                                <img src='$img_url' class='rounded' alt='...'>
+                                <img src='$img_url' class='rounded' onerror=$img_error alt='...'>
                             </div>
                             <span class='contents-title'>{$url_pieces[6]}</span>
                             <hr class='title-division'>
@@ -89,19 +97,25 @@ if(!isset($_SESSION['email'])){
                                         <input type='hidden' name='wid' value='{$wid}'>
                                         <button type='submit' class='btn btn-sm btn-outline-light btn-view'>View</button>
                                     </form>
-                                    <form action='writting.php' method='post'>
+                                    <form action='update.php' method='post'>
                                         <input type='hidden' name='wid' value='{$wid}'>
                                         <button type='submit' class='btn btn-sm btn-outline-light btn-edit'>Edit</button>
                                     </form>
                                 </div>
-                                <div class='contents-date'>
-                                    {$date}
+                                <div class='contents-info'>
+                                    <div class='contents-date'>
+                                        {$date}
+                                    </div>
+                                    <div class='contents-writter'>
+                                        {$writter}
+                                    </div>
                                 </div>
                             </div>
                         </div>";
         
         $i = $i + 1;
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -119,96 +133,24 @@ if(!isset($_SESSION['email'])){
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="index.js"></script>
     <link rel="stylesheet" type="text/css" href="scss/dist/custom.css">
 </head>
 
 <body>
     <div id="wrap-body">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">Community</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
-                        <li>
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-light" name="check-nickname" type="submit">Search</button>
-                            </form>
-                        </li>
-                    </ul>
-                    <div class="btn-group nav-btns">
-                        <?=$loginButton?>
-                        <div class="dropdown-menu">
-                        <!-- 로그인 버튼 -->
-                            <form action="login.php" method="post" class="px-4 py-3">
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormEmail1" class="form-label">Email address</label>
-                                    <input name="email" type="email" class="form-control" id="exampleDropdownFormEmail1"
-                                        placeholder="email@example.com">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleDropdownFormPassword1" class="form-label">Password</label>
-                                    <input name="passwd" type="password" class="form-control" id="exampleDropdownFormPassword1"
-                                        placeholder="Password">
-                                </div>
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                        <label class="form-check-label" for="dropdownCheck">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </form>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="signUp.php">New around here? Sign up</a>
-                            <a class="dropdown-item" href="#">Forgot password?</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <?php
+            echo $navbar;
+        ?>
         <div class="album">
             <div class="banner col-12 row">
-                <div class="wrap-banner-img">
-                    <img src="data/banner 13.jpg" class="rounded" alt="...">
+                <div class="card">
+                    <div class="wrap-banner-img">
+                        <img src="data/banner 13.jpg" class="rounded" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">자유롭게 블로그처럼, 일기장처럼 자기만의 이야기를 남겨보세요!</h5>
+                    </div>
                 </div>
-                <hr>
-                <span class="banner-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis maiores
-                    nihil voluptate
-                    repudiandae, excepturi debitis saepe blanditiis est temporibus sequi architecto iste quibusdam rem
-                    veritatis in velit recusandae nemo aspernatur!</span>
-                <hr>
             </div>
             <div class="wrap-body">
                 <div class="container" id="container-id">
@@ -218,9 +160,25 @@ if(!isset($_SESSION['email'])){
                     <a class="list-group-item list-group-item-action" href="?main">전체 글 보기</a>
                     <?= $button2?>
                     <?= $button3?>
-                    <a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
                 </div>
             </div>
+            <nav aria-label="Page navigation example" class="pagenation-buttons">
+                <ul class="pagination">
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </body>
