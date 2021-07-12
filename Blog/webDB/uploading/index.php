@@ -1,7 +1,9 @@
 <?php
 session_start();
 $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
-
+// search 기능 구현
+// 현재 substring + search substring 해서 처리
+// searching을 했는데 조회 결과가 12개가 넘어가면 또 처리 해줘야 함
 require_once('lib/navbar.php');
 
 // 클릭 => js에서 감지 => ajax로 php 전송
@@ -35,13 +37,14 @@ if(!isset($_SESSION['email'])){
     $btn_edit_block = "<style> .btn-edit {display:inline-block !important; }</style>";
     $pagenation = 13;
     $start_point = 1;
+    $button3 = '';
+
 
     $Current_URI = explode('=', $Current_URI);
 
     // 1번 버튼 클릭 시 변화 (메인 화면)
     if($Current_URI[0] == 'main'){
         $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
-        $button3 = '';
 
         //수정 버튼 숨기기
         echo $btn_edit_none;
@@ -54,16 +57,33 @@ if(!isset($_SESSION['email'])){
         //수정 버튼 보이기
         echo $btn_edit_block;
     }else if($Current_URI[0]=='page'){
-        
+        // 페이지 이동 기능
         $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
-        $button3 = '';
 
-        // 페이지 이동 시 보여지는 파일
+        // 페이지 이동 시 보여지는 파일 
         $start_point = ($Current_URI[1]-1)*12 + 1;
         $pagenation = ($Current_URI[1])*12 + 1;
+
+    }else if($Current_URI[0]=='search-title'){
+        // 글 검색
+        $search_words = $Current_URI[1];
+        $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
+        $result = mysqli_query($conn, $sql);
+        $title = '';
+        $search_wid = array();
+
+        while($row = mysqli_fetch_array($result)){
+            $title = explode('/',$row['url']);
+            if(strpos($title[6], $search_words) !== false){
+                array_push($search_wid, $row['wid']);
+            }
+        }
+
+        $search_wid = implode(', ', $search_wid);
+        $sql = "SELECT * from user, written where user.uid = written.uid and written.wid in ($search_wid) order by wid desc;";
+
     }else{
         $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
-        $button3 = '';
 
         //수정 버튼 숨기기
         echo $btn_edit_none;
@@ -76,7 +96,7 @@ if(!isset($_SESSION['email'])){
     for($i=1; $i <= $query_length_upper; $i = $i +1){
         $pagebuttons = $pagebuttons."<li class='page-item'><a class='page-link' href='?page=$i' data-page='$i'>$i</a></li>";
     }
-
+    
     $i = 0;
     $list = '';
     // 본문 미리보기 생성
@@ -159,6 +179,7 @@ if(!isset($_SESSION['email'])){
 
 <body>
     <div id="wrap-body">
+        <div class="background"></div>
         <?php
             echo $navbar;
         ?>

@@ -32,8 +32,8 @@ function print_nav($loginButton){
                                 </li>
                                 <li>
                                     <form class='d-flex'>
-                                        <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search'>
-                                        <button class='btn btn-outline-light' name='check-nickname' type='submit'>Search</button>
+                                        <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' name='search-title' >
+                                        <button class='btn btn-outline-light' type='submit'>Search</button>
                                     </form>
                                 </li>
                             </ul>

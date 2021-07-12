@@ -10759,13 +10759,19 @@ body {
 
 .wrap-main {
   height: 130em;
+}
+
+.background {
+  position: fixed;
+  width: 100%;
+  height: 120vh;
   background-color: #f8f9fa;
+  z-index: -1000;
 }
 
 .album {
   width: 100%;
   height: 130em;
-  background-color: #f8f9fa;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -10940,6 +10946,7 @@ body {
   display: flex;
   justify-content: space-between;
   text-align: bottom;
+  margin-bottom: 10px;
 }
 
 .navbar-nav {
@@ -10949,6 +10956,7 @@ body {
 #not-same-pw {
   color: #dc3545;
   font-weight: bold;
+  opacity: 1;
 }
 
 #check-nickname {
@@ -11028,7 +11036,7 @@ body {
     width: 20%;
   }
 }
-/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+/* 테블릿 가로, 테블릿 세로 (해상도 ~ 1023px)*/
 @media all and (max-width: 1023px) {
   #dropdownMenuButton {
     margin-left: 0;
@@ -11088,5 +11096,15 @@ span {
   #floatingTextarea2 {
     height: 75em;
   }
+
+  .signUp {
+    width: 100%;
+    overflow: hidden;
+  }
 }
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/
+@media all and (max-width: 700px) {
+  .re_passwd {
+    flex-direction: column;
+  }
+}
