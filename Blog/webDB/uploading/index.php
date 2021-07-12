@@ -7,7 +7,6 @@ require_once('lib/navbar.php');
 // 클릭 => js에서 감지 => ajax로 php 전송
 // 클릭 => php 감지 => php에서 ajax script 실행?
 // 클릭 => 클릭 한 버튼의 index 번호를 받아오면 index * 12해서 표시
-
 // 로그인 상태 확인하여 로그인 버튼 조절
 if(!isset($_SESSION['email'])){
     $loginButton = '<button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -34,23 +33,34 @@ if(!isset($_SESSION['email'])){
     $Current_URI = $_SERVER['QUERY_STRING'];
     $btn_edit_none = "<style> .btn-edit {display:none !important; }</style>";
     $btn_edit_block = "<style> .btn-edit {display:inline-block !important; }</style>";
+    $pagenation = 13;
+    $start_point = 1;
 
+    $Current_URI = explode('=', $Current_URI);
 
     // 1번 버튼 클릭 시 변화 (메인 화면)
-    if($Current_URI == 'main'){
+    if($Current_URI[0] == 'main'){
         $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
         $button3 = '';
 
         //수정 버튼 숨기기
         echo $btn_edit_none;
     
-    }else if($Current_URI == 'written'){
+    }else if($Current_URI[0] == 'written'){
     // 2번 버튼 클릭 시 변화 (내 글 보기 화면)
         $sql = "SELECT * from user, written where user.uid = written.uid and written.uid = (select uid from user where email like '{$_SESSION['email']}' ) order by wid desc;";
         $button3 = '<a class="list-group-item list-group-item-action" href="writting.php">새 글 작성</a>';
         
         //수정 버튼 보이기
         echo $btn_edit_block;
+    }else if($Current_URI[0]=='page'){
+        
+        $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
+        $button3 = '';
+
+        // 페이지 이동 시 보여지는 파일
+        $start_point = ($Current_URI[1]-1)*12 + 1;
+        $pagenation = ($Current_URI[1])*12 + 1;
     }else{
         $sql = "SELECT * from user, written where user.uid = written.uid order by wid desc;";
         $button3 = '';
@@ -60,11 +70,23 @@ if(!isset($_SESSION['email'])){
     }
     
     $result = mysqli_query($conn, $sql);
+    $query_length_upper = ceil(mysqli_num_rows($result)/12);
+    $pagebuttons = '';
 
-    $i = 1;
+    for($i=1; $i <= $query_length_upper; $i = $i +1){
+        $pagebuttons = $pagebuttons."<li class='page-item'><a class='page-link' href='?page=$i' data-page='$i'>$i</a></li>";
+    }
+
+    $i = 0;
     $list = '';
     // 본문 미리보기 생성
     while($row = mysqli_fetch_array($result)){
+        $i = $i + 1;
+
+        if($i < $start_point || $i >= $pagenation){
+            continue;
+        }
+
         $url = $row['url'];
         $url_pieces = explode("/", $url);
 
@@ -113,7 +135,6 @@ if(!isset($_SESSION['email'])){
                             </div>
                         </div>";
         
-        $i = $i + 1;
     }
 
 ?>
@@ -169,9 +190,7 @@ if(!isset($_SESSION['email'])){
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <?= $pagebuttons?>
                     <li class="page-item">
                     <a class="page-link" href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
