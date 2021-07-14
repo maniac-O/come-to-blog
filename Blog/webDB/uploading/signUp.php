@@ -1,6 +1,6 @@
 <?php
 require_once('lib/navbar.php');
-$navbar = print_nav(null);
+$navbar = print_nav(null,null);
 ?>
 
 <!DOCTYPE html>

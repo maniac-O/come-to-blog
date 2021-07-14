@@ -1,4 +1,5 @@
 <?php
+// 글 편집 시 동작
 if(empty($_POST['title']) || empty($_POST['text'])){
     echo "<script> alert('글 작성 실패'); 
     document.location.href='index.php?written'; </script>";
@@ -28,6 +29,9 @@ fclose($file);
 $sql = "update written set url = '{$title}' where wid = {$wid};";
 $result = mysqli_query($conn, $sql);
 
+
+
+// 썸내일 업로드 기능
 if($_FILES['thumbnail']['size']!=0){
 	// 썸내일 이미지를 업로드 하기 위한 준비
 	$allowed_ext = array('jpg','jpeg','png','gif');

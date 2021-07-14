@@ -1,4 +1,8 @@
 $(document).ready(() => {
+    // 회원가입 시 : 비밀번호, 비밀번호 확인에 입력된 값이 모두 다를 때 동작한다.
+    // 값이 서로 같으면 정상작동
+    // 값이 다르다면 경고문이 출력되고, submit 버튼이 비활성화 된다.
+
     let not_same_pw = document.querySelector('#not-same-pw');
     let InputPasswd1 = document.querySelector('#InputPassword1');
     let InputPasswd2 = document.querySelector('#InputPassword2');

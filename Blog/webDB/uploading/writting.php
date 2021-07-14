@@ -11,7 +11,7 @@ if(!isset($_SESSION['email'])){
                         Logout
                     </button>
                 </form>';
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton, $_SESSION['nickname'].'님 반갑습니다!');
 }
 ?>
 

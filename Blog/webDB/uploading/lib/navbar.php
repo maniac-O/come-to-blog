@@ -1,5 +1,5 @@
 <?php 
-function print_nav($loginButton){
+function print_nav($loginButton, $whoislogin){
     $navbar = "<nav class='navbar navbar-expand-lg navbar-dark bg-primary'>
                     <div class='container-fluid'>
                         <a class='navbar-brand' href='index.php'>Community</a>
@@ -24,13 +24,11 @@ function print_nav($loginButton){
                                     <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
                                         <li><a class='dropdown-item' href='#'>Action</a></li>
                                         <li><a class='dropdown-item' href='#'>Another action</a></li>
-                                        <li>
-                                            <hr class='dropdown-divider'>
-                                        </li>
+                                        <li><hr class='dropdown-divider'></li>
                                         <li><a class='dropdown-item' href='#'>Something else here</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class='nav-item'>
                                     <form class='d-flex'>
                                         <input class='form-control me-2' type='search' placeholder='Search' aria-label='Search' name='search-title' >
                                         <button class='btn btn-outline-light' type='submit'>Search</button>
@@ -38,6 +36,9 @@ function print_nav($loginButton){
                                 </li>
                             </ul>
                             <div class='btn-group nav-btns'>
+                                <div class='who-is-login'>
+                                    <span>$whoislogin</span>
+                                </div>
                                 $loginButton
                                 <div class='dropdown-menu'>
                                 <!-- 로그인 버튼 -->
@@ -70,7 +71,8 @@ function print_nav($loginButton){
                         </div>
                     </div>
                     </nav>";
-                    return $navbar;
+                    
+    return $navbar;
 }
 
 ?>

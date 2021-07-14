@@ -10784,10 +10784,6 @@ body {
   background: #fff;
 }
 
-#dropdownMenuButton {
-  margin-left: 40%;
-}
-
 .dropdown-menu {
   right: 0;
 }
@@ -10909,7 +10905,7 @@ body {
 
 .nav-btns {
   padding: 7px 0;
-  width: 20%;
+  width: 25%;
 }
 
 .btn-group {
@@ -10928,13 +10924,23 @@ body {
 }
 
 .logoutButton {
-  margin-left: 40%;
   margin-bottom: 0;
   position: relative;
   flex: 1 1 auto;
 }
 .logoutButton > button {
   width: 100%;
+}
+
+.who-is-login {
+  width: 40%;
+  text-align: center;
+  margin: auto 0;
+  color: #fff;
+}
+
+#dropdownMenuButton {
+  border-radius: 0.25rem;
 }
 
 .signUp {
@@ -10951,6 +10957,13 @@ body {
 
 .navbar-nav {
   align-items: center;
+}
+.navbar-nav > li {
+  margin: auto 0;
+}
+
+.d-flex {
+  margin: auto 0;
 }
 
 #not-same-pw {

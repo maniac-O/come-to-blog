@@ -8,7 +8,7 @@ if(!isset($_SESSION['email'])){
                         Login
                     </button>';
     echo "<script> document.location.href='index.php'; </script>";
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton,'');
 }else{
     $loginButton = '
                 <form action="logout.php" method="post" class="logoutButton">
@@ -16,7 +16,7 @@ if(!isset($_SESSION['email'])){
                         Logout
                     </button>
                 </form>';
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton, $_SESSION['nickname'].'님 반갑습니다!');
     $sql = "SELECT * from written where uid = (select uid from user where email like '{$_SESSION['email']}' );";
     $result = mysqli_query($conn, $sql);
 

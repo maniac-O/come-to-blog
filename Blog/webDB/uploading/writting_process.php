@@ -11,6 +11,7 @@ $sql = "select max(wid) from written";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($result);
 $wid = $row['max(wid)'];
+// 다음 index 번호
 $wid = $wid + 1;
 
 // 포스팅의 내용을 업로드하기 위한 준비
@@ -19,6 +20,7 @@ $text = $_POST['text'];
 $email = $_SESSION['email'];
 $date = date('Y-d-m_H-i-s', time()); 
 
+// 파일을 생성할 디렉토리 생성
 $upload_dir = "E:/web/written/{$email}/{$date}/";
 if(!is_dir($upload_dir)){
     mkdir($upload_dir);

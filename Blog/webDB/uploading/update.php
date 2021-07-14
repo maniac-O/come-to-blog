@@ -11,7 +11,7 @@ if(!isset($_SESSION['email'])){
                         Logout
                     </button>
                 </form>';
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton,$_SESSION['nickname'].'님 반갑습니다!');
 }
 
 // 업데이트 하는 부분
@@ -23,7 +23,9 @@ if($name){
     
     $url = $row['url'];
     $url_pieces = explode("/", $url);
+    
     // 미리보기 내용 생성
+    // 업데이트 기능이기 때문에 원래 있던 데이터를 출력해준다.
     $file = fopen("{$url}","r") or die("파일을 열 수 없습니다.");
     $title = $url_pieces[6];
     $text = '';

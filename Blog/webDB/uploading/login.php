@@ -1,4 +1,5 @@
 <?php
+// 로그인 시도 시 동작하는 프로세스
 $email = $_POST['email'];
 $passwd = $_POST['passwd'];
 
@@ -13,12 +14,15 @@ $conn = mysqli_connect('localhost','normalUser','normalUser11!!','blogdb');
 $sql = "SELECT * FROM user where email like '".$_POST['email']."'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+
+// 비밀번호 hashing
 $password_hash = hash("sha256", $_POST['passwd']);
 
 if($row['email'] == $_POST['email'] && $row['passwd'] == $password_hash){
     echo '로그인 성공!';
     session_start();
     $_SESSION['email'] = $email;
+    $_SESSION['nickname'] = $row['nickname'];
     echo "<script> document.location.href='index.php'; </script>";
 }else{
     echo '로그인 실패!';

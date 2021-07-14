@@ -7,7 +7,7 @@ if(!isset($_SESSION['email'])){
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Login
                     </button>';
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton,'');
 
 }else{
     $loginButton = '
@@ -16,7 +16,7 @@ if(!isset($_SESSION['email'])){
                         Logout
                     </button>
                 </form>';
-    $navbar = print_nav($loginButton);
+    $navbar = print_nav($loginButton, $_SESSION['nickname'].'님 반갑습니다!');
 
     $sql = "select * from written where wid = {$_POST['wid']} and uid = (select uid from user where email like '".$_SESSION['email']."');";
     $result = mysqli_query($conn, $sql);
